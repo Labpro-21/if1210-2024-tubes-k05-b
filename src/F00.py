@@ -13,7 +13,7 @@ def generate_random(seed=None):
 
 # Fungsi untuk menghasilkan bilangan acak dalam rentang tertentu
 def random_number(range_of_random=None):
-    next_value = generate_random()  # Memperoleh modulus dari hasil generate_random
+    next_value = generate_random()  
     modulus = 2147483647
     if range_of_random is not None:
         min_range, max_range = range_of_random
