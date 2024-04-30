@@ -21,7 +21,7 @@ def random_number(range_of_random=None):
     return int(next_value)
 
 # contoh aplikasi
-#print(random_number([1,110]))
+print(random_number([1,100]))
 #11
 #47
 #72
