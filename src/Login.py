@@ -4,19 +4,21 @@ from enkripsi import decode
 def login() :
     username = input("Username : ") #meminta masukkan username
     password = input("Password : ") #meminta masukkan password
-    data.usernamee = username
     account_found = False
     # iterate over the rows in the users list
-    agents=read_csv('user.csv')
+    users=read_csv('user.csv')
     #mengecek apakah akun tersebut ada atau tidak, jika tidak, login gagal
-    for i in range(len(agents)):
+    for i in range(len(users)):
         # check if the username and password match
-        if username == agents[i][1]:
-            if password == decode(agents[i][2]):
+        if username == users[i][1]:
+            if password == decode(users[i][2]):
                 if data.login_status == "false":
-                    role = agents[i][3]
                     account_found = True
-                    print(f"Selamat datang, {role} {username}!")
+                    data.username= username
+                    data.role = users[i][3]
+                    data.id = int(users[i][0])
+                    data.oc = int(users[i][4])
+                    print(f"Selamat datang, {data.role} {username}!")
                     print("Masukkan command 'help' untuk daftar command yang dapat kamu panggil.")
                     break
                 elif data.login_status == "true":

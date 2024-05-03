@@ -1,2 +1,2 @@
-nt_id,monster_choice,1]
-        monster_inventory.append(for_mon
+][1])
+        inventory["quantity"].append(potion[x][2])

@@ -2,16 +2,17 @@
 import os
 from parseran import read_csv,save_data
 from enkripsi import decode,encode
+import data
 
 def register():
     # Fungsi untuk melakukan registrasi
-    def register_user(agents, monsters):
+    def register_user(users, monsters):
         # Memasukkan input username dan password
         username = input("Masukan username: ")
         password = input("Masukan password: ")
 
         # Memuat agen
-        agents = read_csv('user.csv')
+        users = read_csv('user.csv')
         monsters = read_csv('monster.csv')
         monster_inventory = read_csv('monster_inventory.csv')
 
@@ -20,9 +21,9 @@ def register():
             print("Username hanya boleh berisi alfabet, angka, underscore, dan strip!")
             return
         # Cek apakah username telah terpakai atau sudah login dengan akun yang baru diregiste
-        for i in range(len(agents)):
-            if agents[i][1] == username:
-                if agents[i][2] == decode(password):
+        for i in range(len(users)):
+            if users[i][1] == username:
+                if data.login_status=="true":
                     print("Register gagal! Anda telah login dengan username", username + ", silahkan lakukan 'LOGOUT' sebelum melakukan register.")
                     return
                 else:
@@ -40,18 +41,22 @@ def register():
             return
         
         # Proses registrasi
-        new_agent_id = len(agents) if agents else 1
+        new_agent_id = len(users) if users else 1
         new_agent = [new_agent_id, username, encode(password), 'Agent', 0]
-        agents.append(new_agent)
+        users.append(new_agent)
 
+        data.role = users[new_agent_id][3]
+        data.username= username
+        data.id = new_agent_id
+        data.oc = 0
         for_monster_inventory = [new_agent_id,monster_choice,1]
         monster_inventory.append(for_monster_inventory)
         print("Selamat datang Agent", username + ". Mari kita mengalahkan Dr. Asep Spakbor dengan", monsters[monster_choice][1] + "!")
-        save_data('user.csv', agents)
+        save_data('user.csv', users)
         save_data('monster_inventory.csv', monster_inventory)
-    agents = []
+    users = []
     monsters = read_csv('monster.csv')
-    register_user(agents, monsters)
+    register_user(users, monsters)
 
 # Memanggil fungsi register
 register()
