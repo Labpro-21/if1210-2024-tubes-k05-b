@@ -3,8 +3,7 @@ import data
 def logout() :
     if data.login_status=="true":
         data.login_status = "false" #logout berarti login statusnya false
-<<<<<<< HEAD
-        data.id=0
+        data.id='1'
         data.username = "null"
         data.role = "null"
         data.oc=0
@@ -12,9 +11,3 @@ def logout() :
     else:
         print('Logout gagal!')
         print('Anda belum login, silahkan login terlebih dahulu sebelum melakukan logout')
-=======
-        print("Anda telah logout")
-    else:
-        print('Logout gagal!')
-        print('Anda belum login, silahkan login terlebih dahulu sebelum melakukan logout')
->>>>>>> 49723c91f1eed1ad57c6e7b8b04f16cd2908072d
