@@ -1,0 +1,57 @@
+
+import os
+from parseran import read_csv,save_data
+from enkripsi import decode,encode
+
+def register():
+    # Fungsi untuk melakukan registrasi
+    def register_user(agents, monsters):
+        # Memasukkan input username dan password
+        username = input("Masukan username: ")
+        password = input("Masukan password: ")
+
+        # Memuat agen
+        agents = read_csv('user.csv')
+        monsters = read_csv('monster.csv')
+        monster_inventory = read_csv('monster_inventory.csv')
+
+        # Validasi username
+        if not all(char in "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_-0123456789" for char in username):
+            print("Username hanya boleh berisi alfabet, angka, underscore, dan strip!")
+            return
+        # Cek apakah username telah terpakai atau sudah login dengan akun yang baru diregiste
+        for i in range(len(agents)):
+            if agents[i][1] == username:
+                if agents[i][2] == decode(password):
+                    print("Register gagal! Anda telah login dengan username", username + ", silahkan lakukan 'LOGOUT' sebelum melakukan register.")
+                    return
+                else:
+                    print("Username", username, "sudah terpakai, silahkan gunakan username lain!")
+                    return
+        print("Silahkan pilih salah satu monster sebagai monster awalmu.")
+        print(monsters)
+        for i in range(1,len(monsters)):
+            print(f'{i}. {monsters[i][1]}')
+
+        # Pemilihan monster
+        monster_choice = int(input("Silahkan pilih salah satu monster sebagai monster awalmu:\n"))
+        if monster_choice < 1 or monster_choice > len(monsters):
+            print("Pilihan monster tidak valid!")
+            return
+        
+        # Proses registrasi
+        new_agent_id = len(agents) if agents else 1
+        new_agent = [new_agent_id, username, encode(password), 'Agent', 0]
+        agents.append(new_agent)
+
+        for_monster_inventory = [new_agent_id,monster_choice,1]
+        monster_inventory.append(for_monster_inventory)
+        print("Selamat datang Agent", username + ". Mari kita mengalahkan Dr. Asep Spakbor dengan", monsters[monster_choice][1] + "!")
+        save_data('user.csv', agents)
+        save_data('monster_inventory.csv', monster_inventory)
+    agents = []
+    monsters = read_csv('monster.csv')
+    register_user(agents, monsters)
+
+# Memanggil fungsi register
+register()
