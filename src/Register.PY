@@ -15,18 +15,17 @@ def register():
         users = read_csv('user.csv')
         monsters = read_csv('monster.csv')
         monster_inventory = read_csv('monster_inventory.csv')
-
-        # Validasi username
-        if not all(char in "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_-0123456789" for char in username):
-            print("Username hanya boleh berisi alfabet, angka, underscore, dan strip!")
+        if data.login_status=="true":
+            print("Register gagal! Anda telah login dengan username", username + ", silahkan lakukan 'LOGOUT' sebelum melakukan register.")
             return
-        # Cek apakah username telah terpakai atau sudah login dengan akun yang baru diregiste
-        for i in range(len(users)):
-            if users[i][1] == username:
-                if data.login_status=="true":
-                    print("Register gagal! Anda telah login dengan username", username + ", silahkan lakukan 'LOGOUT' sebelum melakukan register.")
-                    return
-                else:
+        else:
+            # Validasi username
+            if not all(char in "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_-0123456789" for char in username):
+                print("Username hanya boleh berisi alfabet, angka, underscore, dan strip!")
+                return
+            # Cek apakah username telah terpakai atau sudah login dengan akun yang baru diregiste
+            for i in range(len(users)):
+                if users[i][1] == username:
                     print("Username", username, "sudah terpakai, silahkan gunakan username lain!")
                     return
         print("Silahkan pilih salah satu monster sebagai monster awalmu.")

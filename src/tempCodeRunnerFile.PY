@@ -1,2 +1,1 @@
-][1])
-        inventory["quantity"].append(potion[x][2])
+data.oc-=harga[lvl_now+1-2]

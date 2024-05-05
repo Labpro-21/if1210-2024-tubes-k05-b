@@ -51,14 +51,14 @@ def inventory():
     found_potion=False
     found_monster=False
 
-    print("=====ITEMS=====")
+    print("================ITEMS=================")
     for x in range(1,len(potion)):
         if u_id_invent[x]==data.id:
             print(f"{x}. Potion      Type: {tipe_item[x]}, Quantity: {qty[x]}")
             found_potion=True
     if not found_potion:
         print('Tidak memiliki potion')
-    print("====MONSTERS=====")
+    print("===============MONSTERS===============")
     for x in range(len(inventory['monsters'])):
         if u_id_monst[x+1]==data.id:
             print(f"{x+1}. Monster    {monst[x]} (Monster-ID: {monst_id[x+1]}, Level: {monst_lvl[x+1]}, HP: {hp_monst[x+1]}) ")
@@ -72,7 +72,7 @@ def inventory():
         x=int(id_tampil[1])
         if id_tampil[0]=="m":
             if found_monster:
-                print(f"{x}. Monster     {monst[x]} (Monster-ID: {monst_id[x+1]}, Level: {monst_lvl[x+1]}, Atk Power: {atk_monst[x]}, Def Power: {def_monst[x]}, HP: {hp_monst[x]}) ")
+                print(f"{x}. Monster     {monst[x+1]} (Monster-ID: {monst_id[x+1]}, Level: {monst_lvl[x+1]}, Atk Power: {atk_monst[x]}, Def Power: {def_monst[x]}, HP: {hp_monst[x]}) ")
             else:
                 print('Tidak ada data')
         elif id_tampil[0]=="p":
