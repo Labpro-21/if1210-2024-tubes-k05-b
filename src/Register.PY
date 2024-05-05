@@ -47,7 +47,7 @@ def register():
 
         data.role = users[new_agent_id][3]
         data.username= username
-        data.id = new_agent_id
+        data.id = str(new_agent_id)
         data.oc = 0
         for_monster_inventory = [new_agent_id,monster_choice,1]
         monster_inventory.append(for_monster_inventory)

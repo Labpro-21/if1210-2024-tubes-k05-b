@@ -16,7 +16,7 @@ def login() :
                     account_found = True
                     data.username= username
                     data.role = users[i][3]
-                    data.id = int(users[i][0])
+                    data.id = users[i][0]
                     data.oc = int(users[i][4])
                     print(f"Selamat datang, {data.role} {username}!")
                     print("Masukkan command 'help' untuk daftar command yang dapat kamu panggil.")

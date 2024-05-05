@@ -1,6 +1,6 @@
 #buat naruh var, biar lebih simple manggilnya
 login_status = "false"
-id=1
+id='4'
 username = "null"
 role = "null"
 oc=0
