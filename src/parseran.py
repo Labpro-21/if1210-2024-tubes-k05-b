@@ -23,17 +23,6 @@ def split(line: str) -> list[any]:
     out.append(tmp)
     return out
 
-def matrix_to_csv(matrix):
-    csv_string = ""
-    for row in matrix:
-        row_string = ";".join(str(element) for element in row)
-        csv_string += row_string + "\n"
-    return csv_string
-
-def write_csv(filename, csv_data):
-    with open(filename, 'w') as file:
-        file.write(csv_data)
-
 def convert_datas_to_string(data):
     # Mengubah data kembali menjadi string sesuai format agar dapat di-write ke dalam file csv
     # I.S. data terdefinisi
@@ -68,3 +57,10 @@ def save_data(file:str,data:str):
     f = open("./data/" + file, "w") 
     f.write(data)
     f.close()
+
+def matrix_pop(matrix, item):
+    new_matrix = []
+    for row in matrix:
+        if row != item:
+            new_matrix.append(row)
+    return new_matrix

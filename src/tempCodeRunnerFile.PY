@@ -1,1 +1,1 @@
-data.oc-=harga[lvl_now+1-2]
+idx+=1
