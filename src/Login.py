@@ -1,35 +1,44 @@
-import data
-from parseran import read_csv
+from parseran import read_csv,save_data
 from enkripsi import decode
-def login() :
-    username = input("Username : ") #meminta masukkan username
-    password = input("Password : ") #meminta masukkan password
-    account_found = False
-    # iterate over the rows in the users list
-    users=read_csv('user.csv')
-    #mengecek apakah akun tersebut ada atau tidak, jika tidak, login gagal
-    for i in range(len(users)):
-        # check if the username and password match
-        if username == users[i][1]:
-            if password == decode(users[i][2]):
-                if data.login_status == "false":
-                    account_found = True
-                    data.username= username
-                    data.role = users[i][3]
-                    data.id = users[i][0]
-                    data.oc = int(users[i][4])
-                    print(f"Selamat datang, {data.role} {username}!")
-                    print("Masukkan command 'help' untuk daftar command yang dapat kamu panggil.")
-                    break
-                elif data.login_status == "true":
-                    print(f'Anda telah login dengan username {username}, silahkan lakukan “LOGOUT” sebelum melakukan login kembali.')
-            else:
-                account_found = True
-                print("Password salah!")
-                break
-        else :
-            account_found = False
+user_login=read_csv('user_login.csv')
+user=read_csv('user.csv')
+def save_data_login(id:str,username:str,role:str,oc:str):
+    user_login[1][0]=id
+    user_login[1][1]=username
+    user_login[1][2]=role
+    user_login[1][3]=oc
+    user_login[1][3]='True'
+    save_data('user_login.csv',user_login)
 
-    if not account_found :
-        print("Username tidak terdaftar")
+def login() :
+    account_found = False
+    if user_login[1][4] == "True":
+        print(f'Anda telah login dengan username {user_login[1][1]}, silahkan lakukan “LOGOUT” sebelum melakukan login kembali.')
+    else:
+        username = input("Username : ") #meminta masukkan username
+        password = input("Password : ") #meminta masukkan password
+        # iterate over the rows in the user list
+        #mengecek apakah akun tersebut ada atau tidak, jika tidak, login gagal
+        for i in range(len(user)):
+            # check if the username and password match
+            if username == user[i][1]:
+                if password == decode(user[i][2]):
+                        account_found = True
+                        data_username= username
+                        data_role = user[i][3]
+                        data_id = user[i][0]
+                        data_oc = int(user[i][4])
+                        save_data_login(data_id,data_username,data_role,data_oc)
+                        print(f"Selamat datang, {data_role} {username}!")
+                        print("Masukkan command 'help' untuk daftar command yang dapat kamu panggil.")
+                        break
+                else:
+                    account_found = True
+                    print("Password salah!")
+                    break
+            else :
+                account_found = False
+
+        if not account_found :
+            print("Username tidak terdaftar")
 login()

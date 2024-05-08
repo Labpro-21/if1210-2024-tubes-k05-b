@@ -10,12 +10,7 @@ item_shop=read_csv('item_shop.csv')
 shop_m = load_data_m_shop_buat_shop_c()
 shop_p = load_data_p_shop_buat_shop_c()
 
-
-#semua yang ada di monster.csv diliatin. tapi yg gk ada stoknya doang
-#cari dulu yang ada di monster.csv tapi gak ada di monster_shop
-def tambah_m():
-    a = [monster[i][0] for i in range(1,len(monster))]
-    b = [monster_shop[i][0] for i in range(1, len(monster_shop))]
+def cari_yg_gk_ada(a:list,b:list)->list:
     c=[]
     idx = 0
     for i in a:
@@ -25,6 +20,13 @@ def tambah_m():
             idx += 1
         if idx > len(b) - 1:
             idx = len(b)-1
+    return c
+#semua yang ada di monster.csv diliatin. tapi yg gk ada stoknya doang
+#cari dulu yang ada di monster.csv tapi gak ada di monster_shop
+def tambah_m():
+    a = [monster[i][0] for i in range(1,len(monster))]
+    b = [monster_shop[i][0] for i in range(1, len(monster_shop))]
+    c = cari_yg_gk_ada(a,b)
     print('ID | Type    | ATK Power | DEF Power | HP  |')
     m_blm_sell=[]
     for m in monster:
@@ -42,15 +44,7 @@ def tambah_m():
 def tambah_p():
     a = ['Magic','Power']
     b = [item_shop[i][1] for i in range(1, len(item_shop))]
-    c=[]
-    idx = 0
-    for i in a:
-        if i != b[idx]:
-            c.append(i)
-        else:
-            idx += 1
-        if idx > len(b) - 1:
-            idx = len(b)-1
+    c = cari_yg_gk_ada(a,b)
     print('ID | Type |')
     idx=1
     for p_tambah in c:

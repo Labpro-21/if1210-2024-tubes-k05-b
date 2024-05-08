@@ -38,7 +38,8 @@ def convert_datas_to_string(data):
     for arr_data in data:
         arr_data_all_string = [str(var) for var in arr_data]
         data_string += ";".join(arr_data_all_string)
-        data_string += "\n"
+        if not(arr_data==data[len(data)-1]):
+            data_string += "\n"
     return data_string
 
 def save_data(file:str,data:str):
