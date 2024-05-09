@@ -1,4 +1,3 @@
-import data
 from parseran import read_csv
 user_login=read_csv('user_login.csv')
 data_role=user_login[1][2]
@@ -6,7 +5,7 @@ data_username=user_login[1][1]
 data_status_login=user_login[1][4]
 def help() -> None:
     print("=========== HELP ===========")
-    if data.status_login=="false":
+    if data_status_login=="False":
         print("=========== HELP ===========")
         print("Kamu belum login sebagai role apapun. Silahkan login terlebih dahulu.")
         print("1. Login: Masuk ke dalam akun yang sudah terdaftar")

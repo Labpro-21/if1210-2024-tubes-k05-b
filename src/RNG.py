@@ -19,9 +19,8 @@ def random_number(range_of_random=None):
         min_range, max_range = range_of_random
         next_value = (next_value / modulus) * (max_range - min_range) + min_range
     return int(next_value)
-
 # contoh aplikasi
-print(random_number([1,100]))
+#print(random_number([1,100]))
 #11
 #47
 #72
