@@ -1,6 +1,7 @@
 from parseran import read_csv
 from RNG import random_number
 import math
+import colorizer as clr
 monster_inv=read_csv('monster_inventory.csv')
 monster=read_csv('monster.csv')
 user_login=read_csv('user_login.csv')
@@ -41,16 +42,15 @@ def atk(attacker:list , defender:list) -> list:
         defender[4] = math.floor(defender[4]-total_minus)
     else:
         defender[4]=0
-    print(f'{defender[1]} terkena damage sebesar {hp_before-defender[4]}')
+    print(clr.colored(f"{defender[1]}", 'red') + ' terkena damage sebesar ' + clr.colored(f"{hp_before-defender[4]}", 'red'))
     return defender
 
 def show_monster(player_monster:list,lvl:int):
-    print(f"""Name      : {player_monster[1]}
-ATK Power : {player_monster[2]}
-DEF Power : {player_monster[3]}
-HP        : {player_monster[4]}
-Level     : {lvl}
-""")
+    print(f"Name      : " + clr.colored(f"{player_monster[1]}", 'red'))
+    print(f"ATK Power : " + clr.colored(f"{player_monster[2]}", 'red'))
+    print(f"DEF Power : " + clr.colored(f"{player_monster[3]}", 'red'))
+    print(f"HP        : " + clr.colored(f"{player_monster[4]}", 'red'))
+    print(f"Level     : " + clr.colored(f"{lvl}", 'red'))
     return
 def edit_att_r_m(monster:list,level:int)->list:
     monster[2]=monst_att(level,monster[2])

@@ -1,8 +1,7 @@
-from RNG import random_number
-from Help import help
-from Battle import fight
-from monster import edit_att_r_m
-from parseran import read_csv,save_data
+import RNG
+import Help
+import Battle
+import parseran
 import time
 def show_arena_stat(stat:dict):
     print(25*"=" + "STAT" + 25*"=")
@@ -14,21 +13,21 @@ Total Damage Diterima   : {stat['damage_taken']}
 """)
 
 def arena():
-    user_login = read_csv("user_login.csv")
+    user_login = parseran.read_csv("user_login.csv")
     status_login=user_login[1][4]
-    data_monster = read_csv("monster.csv")
+    data_monster = parseran.read_csv("monster.csv")
     if status_login=="False":
-        help()
+        Help.help()
     else:
         id_monster = []
         if len(data_monster)>5:
             while len(id_monster) < 5:
-                random_id = str(random_number([1, len(data_monster)]))
+                random_id = str(RNG.random_number([1, len(data_monster)]))
                 if random_id not in id_monster:
                     id_monster.append(random_id)
         else:
             while len(id_monster) < 5:
-                random_id = str(random_number([1, len(data_monster)]))
+                random_id = str(RNG.random_number([1, len(data_monster)]))
                 if random_id not in id_monster:
                     id_monster.append(random_id)
                 if len(id_monster) >= len(data_monster):
@@ -46,8 +45,8 @@ def arena():
                     monster = m
                     monster_level=i+1
                     print(monster)
-                    monster = edit_att_r_m(monster,monster_level)
-                    result = fight(monster_level,monster)
+                    monster = monster.edit_att_r_m(monster,monster_level)
+                    result = Battle.fight(monster_level,monster)
                     stat['damage_taken'] += result['damage_taken']
                     stat['total_damage'] += result['total_damage']
 
@@ -61,7 +60,7 @@ def arena():
                 time.sleep(0.75)
                 if not(stat['stage'] == 5):
                     print("Memulai stage berikutnya...")
-                save_data('user_login.csv',user_login)
+                parseran.save_data('user_login.csv',user_login)
             else:
                 print(f"Yahhh, Anda dikalahkan monster {monster[1]}. Jangan menyerah, coba lagi !!!")
                 break
@@ -70,6 +69,5 @@ def arena():
             print("Selamat, Anda berhasil menyelesaikan seluruh stage!")
         
         show_arena_stat(stat)
-arena()
 
 

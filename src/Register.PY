@@ -1,12 +1,12 @@
 
 import os
-from parseran import read_csv,save_data
-from enkripsi import decode,encode
-from Login import save_data_login
-user_login=read_csv('user_login.csv')
+import parseran
+import enkripsi
+import Login
 def register():
     # Fungsi untuk melakukan registrasi
     def register_user(users, monsters):
+        user_login=parseran.read_csv('user_login.csv') 
         if user_login[1][4]=="True":
             print(f"Register gagal! Anda telah login dengan username {user_login[1][1]} silahkan lakukan 'LOGOUT' sebelum melakukan register.")
             return
@@ -16,9 +16,9 @@ def register():
             password = input("Masukan password: ")
 
             # Memuat agen
-            users = read_csv('user.csv')
-            monsters = read_csv('monster.csv')
-            monster_inventory = read_csv('monster_inventory.csv')
+            users = parseran.read_csv('user.csv')
+            monsters = parseran.read_csv('monster.csv')
+            monster_inventory = parseran.read_csv('monster_inventory.csv')
             # Validasi username
             if not all(char in "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_-0123456789" for char in username):
                 print("Username hanya boleh berisi alfabet, angka, underscore, dan strip!")
@@ -41,7 +41,7 @@ def register():
         
         # Proses registrasi
         new_agent_id = len(users) if users else 1
-        new_agent = [new_agent_id, username, encode(password), 'Agent', 0]
+        new_agent = [new_agent_id, username, enkripsi.encode(password), 'Agent', 0]
         users.append(new_agent)
 
         data_role = users[new_agent_id][3]
@@ -51,12 +51,9 @@ def register():
         for_monster_inventory = [new_agent_id,monster_choice,1]
         monster_inventory.append(for_monster_inventory)
         print("Selamat datang Agent", username + ". Mari kita mengalahkan Dr. Asep Spakbor dengan", monsters[monster_choice][1] + "!")
-        save_data_login(data_id,data_username,data_role,data_oc)
-        save_data('user.csv', users)
-        save_data('monster_inventory.csv', monster_inventory)
+        Login.save_data_login(data_id,data_username,data_role,data_oc)
+        parseran.save_data('user.csv', users)
+        parseran.save_data('monster_inventory.csv', monster_inventory)
     users = []
-    monsters = read_csv('monster.csv')
+    monsters = parseran.read_csv('monster.csv')
     register_user(users, monsters)
-
-# Memanggil fungsi register
-register()

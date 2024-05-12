@@ -65,3 +65,10 @@ def matrix_pop(matrix, item):
         if row != item:
             new_matrix.append(row)
     return new_matrix
+
+def write_csv_to_folder(foldername:str,csv:str):
+    with open(f'./data/{foldername}/{csv}.csv', 'w', encoding='utf-8') as file:
+        data=read_csv(f'{csv}.csv')
+        for row in data:
+            row_str = ';'.join(row)
+            file.write(row_str + '\n')

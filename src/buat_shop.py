@@ -1,11 +1,12 @@
-from parseran import read_csv
-monster_shop=read_csv('monster_shop.csv')
-item_shop=read_csv('item_shop.csv')
-monster =read_csv('monster.csv')
-monster_inventory =read_csv('monster_inventory.csv')
-item_inventory =read_csv('item_inventory.csv')
+import parseran
+monster_shop=parseran.read_csv('monster_shop.csv')
+item_shop=parseran.read_csv('item_shop.csv')
+monster =parseran.read_csv('monster.csv')
+monster_inventory =parseran.read_csv('monster_inventory.csv')
+item_inventory =parseran.read_csv('item_inventory.csv')
 
-shop_m = {
+def load_data_m_shop_buat_shop_c()->dict:
+    shop_m = {
         "id_m": [],
         "type_m": [],
         "atk_m": [],
@@ -14,15 +15,8 @@ shop_m = {
         "stok_m": [],
         "harga_m" : [],
     }
-
-shop_p = {
-        "id_p": [],
-        "type_p": [],
-        "stok_p": [],
-        "harga_p": [],
-    }
-
-def load_data_m_shop_buat_shop_c()->dict:
+    monster =parseran.read_csv('monster.csv')
+    monster_shop=parseran.read_csv('monster_shop.csv')
     for i in range(1,len(monster_shop)):
         shop_m['id_m'].append(monster_shop[i][0])
         shop_m['stok_m'].append(monster_shop[i][1])
@@ -37,6 +31,13 @@ def load_data_m_shop_buat_shop_c()->dict:
     return shop_m
 
 def load_data_p_shop_buat_shop_c()->dict:
+    shop_p = {
+        "id_p": [],
+        "type_p": [],
+        "stok_p": [],
+        "harga_p": [],
+    }
+    item_shop=parseran.read_csv('item_shop.csv')
     for i in range(1,len(item_shop)):
         shop_p['id_p'].append(str(i))
         shop_p['type_p'].append(item_shop[i][0])

@@ -1,21 +1,24 @@
 import time
-from monster import edit_att_m,atk, show_monster, edit_att_r_m, monster_art_user,monster_art_musuh
-from Potion import load_data_p
-from RNG import random_number
-from parseran import save_data,read_csv
-user_login=read_csv('user_login.csv')
+import Monster
+import Potion
+import RNG
+import parseran
+import colorizer as clr
+import os
+import time
+user_login=parseran.read_csv('user_login.csv')
 data_username=user_login[1][1]
 data_id=user_login[1][0]
 
-item_inv=read_csv('item_inventory.csv')
-monster=read_csv('monster.csv')
+item_inv=parseran.read_csv('item_inventory.csv')
+monster=parseran.read_csv('monster.csv')
 
 def kurangi_qty(data_id:str,type_p:str):
-    item_inv=read_csv('item_inventory.csv')
+    item_inv=parseran.read_csv('item_inventory.csv')
     for p in item_inv:
         if p[0]==data_id and p[1]==type_p:
             p[2]=str(int(p[2])-1)
-    save_data('item_inventory.csv',item_inv)
+    parseran.save_data('item_inventory.csv',item_inv)
 def fight(monster_lvl,monster):
     stat = {
         'win': True,
@@ -24,18 +27,19 @@ def fight(monster_lvl,monster):
     }
     #monster = Function.updateAttribute(monster, monsterLevel)
     #Database.monsterArt(monster, Database.monster_art)
-    monster= edit_att_r_m(monster,monster_lvl)
+    monster= Monster.edit_att_r_m(monster,monster_lvl)
     print(f'RAWRR, Monster {monster[1]} telah muncul !!!\n')
-    monster_art_musuh()
+    Monster.monster_art_musuh()
+
     print(12*"=" + "MONSTER LIST" + 12*"=" + '\n')
 
-    user_monster = edit_att_m()
+    user_monster = Monster.edit_att_m()
     for idx in range(len(user_monster["id"])):
         print(f'{idx+1}. {user_monster["type"][idx]}')
     
     pilih = int(input("\nPilih monster untuk bertarung (angka): "))
     while not(1<=pilih<= len(user_monster["id"])):
-        print("Pilihan nomor tidak tersedia!")
+        print(clr.colored("Pilihan nomor tidak tersedia!", 'red'))
         pilih = int(input("Pilih monster untuk bertarung (angka): "))
     player_monster = []
     player_monster.append(user_monster["id"][pilih-1]) 
@@ -45,10 +49,13 @@ def fight(monster_lvl,monster):
     player_monster.append(user_monster["hp"][pilih-1]) 
     player_monster.append(user_monster["lvl"][pilih-1])
     base_hp=user_monster["hp"][pilih-1]
-    #Database.monsterArt(playerMonster, Database.monster_art)
-    monster_art_user()
+    time.sleep(1)
+    os.system('cls')
+    Monster.monster_art_user()
     print(f"Agent {data_username} mengeluarkan monster {player_monster[1]} !!!\n")
-    show_monster(player_monster,player_monster[5])
+    Monster.show_monster(player_monster,player_monster[5])
+    time.sleep(2)
+    os.system('cls')
     current_potion = {
         'strength':False,
         'resilience':False,
@@ -65,7 +72,7 @@ def fight(monster_lvl,monster):
             return stat
 
         if turn % 2 == 1:
-            print(12*"=" + f"TURN {turn} ({player_monster[1]})" + 12*"=")
+            print("\n" + 12*"=" + clr.colored(f"TURN {turn} ({player_monster[1]})", 'magenta') + 12*"=")
             print('1. Attack\n2. Use Potion\n3. Quit')
             choice = int(input("Pilih perintah (angka): "))
             while choice < 1 or choice > 3:
@@ -75,12 +82,14 @@ def fight(monster_lvl,monster):
                 if choice==1:
                     print(f"SCHWINKKK, {player_monster[1]} menyerang {monster[1]}(musuh) !!!\n")
                     hp_awal = monster[4]
-                    monster = atk(player_monster, monster)
-                    show_monster(monster,monster_lvl)
+                    time.sleep(1)
+                    os.system('cls')
+                    monster = Monster.atk(player_monster, monster)
+                    Monster.show_monster(monster,monster_lvl)
                     stat["total_damage"] += hp_awal - monster[4]
                     break
                 elif choice==2:
-                    user_potion=load_data_p(item_inv)
+                    user_potion=Potion.load_data_p(item_inv)
                     if user_potion == []:
                         print("Kamu tidak memiliki potion. Beli potion di shop.")
                         continue
@@ -137,24 +146,29 @@ def fight(monster_lvl,monster):
                     print("Pilihan tidak ditemukan")
                     continue
             turn+=1
+            time.sleep(3)
+            os.system('cls')
         else:
-            print(12*"=" + f"TURN {turn} ({monster[1]} (musuh))" + 12*"=")
+            print("\n" + 12*"=" + clr.colored(f"TURN {turn} ({monster[1]} (musuh))","blue") + 12*"=")
             print(f"SCHWINKKK, {monster[1]} (musuh) menyerang {player_monster[1]} !!!")
             hp_awal = player_monster[4]
-
-            player_monster = atk(monster, player_monster)
-            show_monster(player_monster,player_monster[5])
+            time.sleep(1)
+            os.system('cls')
+            player_monster = Monster.atk(monster, player_monster)
+            Monster.show_monster(player_monster,player_monster[5])
 
             stat['damage_taken'] += hp_awal - player_monster[4]
             turn+=1
+            time.sleep(3)
+            os.system('cls')
 
 def battle():
     if user_login[1][4]=='False':
         help()
     else:
-        monster=read_csv('monster.csv')
-        id_monster=random_number([1,len(monster)])
-        monster_lvl=random_number([1,5])
+        monster=parseran.read_csv('monster.csv')
+        id_monster=RNG.random_number([1,len(monster)])
+        monster_lvl=RNG.random_number([1,5])
         random_monster= []
         for m in monster:
             if m[0]==str(id_monster):
@@ -167,9 +181,9 @@ def battle():
         result = fight(monster_lvl,random_monster)
 
     if result['win']:
-        reward = random_number([5,30])
+        reward = RNG.random_number([5,30])
         user_login[1][3]=str(int(user_login[1][3])+reward) 
-        save_data('user_login.csv',user_login)
-        print(f"Selamat, Anda berhasil mengalahkan monster {random_monster[1]}. Anda mendapatkan {reward} OC.")
+        parseran.save_data('user_login.csv',user_login)
+        print(clr.colored(f"Selamat, Anda berhasil mengalahkan monster {random_monster[1]}. Anda mendapatkan {reward} OC.", 'yellow'))
     else:
-        print(f"Yahhh, Anda dikalahkan monster {random_monster[1]}. Jangan menyerah, coba lagi !!!")
+        print(clr.colored(f"Yahhh, Anda dikalahkan monster {random_monster[1]}. Jangan menyerah, coba lagi !!!", 'grey'))

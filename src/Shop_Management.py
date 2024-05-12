@@ -1,14 +1,13 @@
-from parseran import read_csv,save_data,matrix_pop
-from Shop_Currency import lihat_monster,lihat_potion
-from buat_shop import load_data_m_shop_buat_shop_c,load_data_p_shop_buat_shop_c
-monster=read_csv('monster.csv')
-monster_shop=read_csv('monster_shop.csv')
-monster_inv=read_csv('monster_inventory.csv')
-item_inv=read_csv('item_inventory.csv')
-item_shop=read_csv('item_shop.csv')
-
-shop_m = load_data_m_shop_buat_shop_c()
-shop_p = load_data_p_shop_buat_shop_c()
+import parseran 
+import Shop_Currency
+import buat_shop
+monster_shop=parseran.read_csv('monster_shop.csv')
+monster_inv=parseran.read_csv('monster_inventory.csv')
+item_inv=parseran.read_csv('item_inventory.csv')
+item_shop=parseran.read_csv('item_shop.csv')
+monster = parseran.read_csv('monster.csv')
+shop_m = buat_shop.load_data_m_shop_buat_shop_c()
+shop_p = buat_shop.load_data_p_shop_buat_shop_c()
 
 def cari_yg_gk_ada(a:list,b:list)->list:
     c=[]
@@ -24,24 +23,30 @@ def cari_yg_gk_ada(a:list,b:list)->list:
 #semua yang ada di monster.csv diliatin. tapi yg gk ada stoknya doang
 #cari dulu yang ada di monster.csv tapi gak ada di monster_shop
 def tambah_m():
+    monster_shop=parseran.read_csv('monster_shop.csv')
+    monster_inv=parseran.read_csv('monster_inventory.csv')
+    monster = parseran.read_csv('monster.csv')
     a = [monster[i][0] for i in range(1,len(monster))]
     b = [monster_shop[i][0] for i in range(1, len(monster_shop))]
     c = cari_yg_gk_ada(a,b)
-    print('ID | Type    | ATK Power | DEF Power | HP  |')
+    print('ID | Type     | ATK Power | DEF Power | HP  ')
     m_blm_sell=[]
     for m in monster:
         if m[0] in c:
-            print(f'{m[0]} | {m[1]}    | {m[2]} | {m[3]} | {m[4]}  |')
+            spasi_atk= len(' ATK Power ')-len(m[2])-1
+            spasi_def= len(' DEF Power ')-len(m[3])-1
+            print(f'{m[0]}  | {m[1]}    | {m[2]}' + spasi_atk*" " + f'| {m[3]}' + spasi_def*" " + f'| {m[4]}  |')
             m_blm_sell.append([m[0],m[1],m[2],m[3],m[4]])
     id=int(input('>>> Masukkan id monster: '))
     if str(id) in (m_blm_sell[0][i] for i in range(len(m_blm_sell))):
         stok_new=input('>>> Masukkan stok awal: ')
         harga_baru=input('>>> Masukkan harga: ')
         monster_shop.append([monster[id][0],stok_new,harga_baru])
-        save_data('monster_shop.csv',monster_shop)
+        parseran.save_data('monster_shop.csv',monster_shop)
     else:
         print('id yang anda masukkan tidak valid')
 def tambah_p():
+    item_shop=parseran.read_csv('item_shop.csv')
     a = ['Magic','Power']
     b = [item_shop[i][1] for i in range(1, len(item_shop))]
     c = cari_yg_gk_ada(a,b)
@@ -55,13 +60,14 @@ def tambah_p():
         stok_new=input('>>> Masukkan stok awal: ')
         harga_baru=input('>>> Masukkan harga: ')
         item_shop.append([type,stok_new,harga_baru])
-        save_data('item_shop.csv',item_shop)
+        parseran.save_data('item_shop.csv',item_shop)
     else:
         print('id yang anda masukkan tidak valid')
 
 
 def ubah_m():
-    lihat_monster()
+    monster_shop=parseran.read_csv('monster_shop.csv')
+    Shop_Currency.lihat_monster()
     id=int(input('>>> Masukkan id monster: '))
     if str(id) in shop_m["id_m"]:
         stok_new=input('>>> Masukkan stok baru: ')
@@ -76,7 +82,7 @@ def ubah_m():
             print(f'{shop_m["type_m"][id-1]} telah berhasil diubah dengan stok baru sejumlah {stok_new}')
         elif harga_baru!='':
             print(f'{shop_m["type_m"][id-1]} telah berhasil diubah dengan harga baru {harga_baru}!')
-        save_data('monster_shop.csv',monster_shop)
+        parseran.save_data('monster_shop.csv',monster_shop)
         return
     else:
         print(f'id {id} tidak terdapat di dalam monster_shop.csv')
@@ -84,7 +90,9 @@ def ubah_m():
 
 
 def ubah_p():
-    lihat_potion()
+    item_shop=parseran.read_csv('item_shop.csv')
+    Shop_Currency.lihat_potion()
+    shop_m = buat_shop.load_data_m_shop_buat_shop_c()
     id=int(input('>>> Masukkan id potion: '))
     if str(id) in shop_p["id_p"]:
         stok_new=input('>>> Masukkan stok baru: ')
@@ -99,7 +107,7 @@ def ubah_p():
             print(f'{shop_p["type_p"][id-1]} telah berhasil diubah dengan stok baru sejumlah {stok_new}')
         elif harga_baru!='':
             print(f'{shop_p["type_p"][id-1]} telah berhasil diubah dengan harga baru {harga_baru}!')
-        save_data('item_shop.csv',item_shop)
+        parseran.save_data('item_shop.csv',item_shop)
         return
     else:
         print(f'id {id} tidak terdapat di dalam item_shop.csv')
@@ -108,24 +116,28 @@ def ubah_p():
 
 #harus apus satu baris, terus baris yang dibawahnya dinaikin(klo misal yg dihapus di tengah) klo yg diapus di akhir biarin aja
 def hapus_m():
-    lihat_monster()
+    Shop_Currency.lihat_monster()
+    shop_m = buat_shop.load_data_m_shop_buat_shop_c()
+    monster_shop=parseran.read_csv('monster_shop.csv')
     id=int(input('>>> Masukkan id monster: '))
     found=False
     for i in range(len(shop_m["id_m"])):
         if id==int(shop_m["id_m"][i]):
+            save_i=i
             found=True
     if found:
-        yakin_apus=input(f'>>> Apakah anda yakin ingin menghapus {shop_m["type_m"][id-1]} dari shop (y/n)? ')
+        yakin_apus=input(f'>>> Apakah anda yakin ingin menghapus {shop_m["type_m"][save_i]} dari shop (y/n)? ')
         if yakin_apus=='y':
-            monster_shop_e=matrix_pop(monster_shop,[monster_shop[id][0],monster_shop[id][1],monster_shop[id][2]])
-            save_data('monster_shop.csv',monster_shop_e)
+            monster_shop_e=parseran.matrix_pop(monster_shop,[monster_shop[save_i+1][0],monster_shop[save_i+1][1],monster_shop[save_i+1][2]])
+            parseran.save_data('monster_shop.csv',monster_shop_e)
         else:
             print(f'Anda tidak jadi hapus monster dengan ID {id}')
     else:
         print(f'id {id} tidak ditemukan')
 
 def hapus_p():
-    lihat_potion()
+    Shop_Currency.lihat_potion()
+    item_shop=parseran.read_csv('item_shop.csv')
     id=int(input('>>> Masukkan id potion: '))
     found=False
     for i in range(len(shop_p["id_p"])):
@@ -137,8 +149,8 @@ def hapus_p():
     if found:
         yakin_apus=input(f'>>> Apakah anda yakin ingin menghapus {shop_p["type_p"][id-1]} Potion dari shop (y/n)? ')
         if yakin_apus=='y':
-            item_shop_e=matrix_pop(item_shop,[item_shop[save_i][0],item_shop[save_i][1],item_shop[save_i][2]])
-            save_data('item_shop.csv',item_shop_e)
+            item_shop_e=parseran.matrix_pop(item_shop,[item_shop[save_i][0],item_shop[save_i][1],item_shop[save_i][2]])
+            parseran.save_data('item_shop.csv',item_shop_e)
         else:
             print(f'Anda tidak jadi hapus monster dengan ID {id}')
     else:
@@ -151,9 +163,9 @@ def shop_management():
         if pilihan=='lihat':
             lihat_apa=input('>>> Mau lihat apa? (monster/potion): ')
             if lihat_apa=='monster':
-                lihat_monster()
+                Shop_Currency.lihat_monster()
             elif lihat_apa=='potion':
-                lihat_potion()
+                Shop_Currency.lihat_potion()
         elif pilihan=='tambah':
             tambah_apa=input('>>> Mau nambahin apa? (monster/potion): ')
             if tambah_apa=='monster':
@@ -174,5 +186,4 @@ def shop_management():
                 hapus_p()
         pilihan=input('>>> Pilih aksi (lihat/tambah/ubah/hapus/keluar): ')
     print('Dadah Mr. Yanto, sampai jumpa lagi!')
-
 shop_management()

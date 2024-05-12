@@ -1,14 +1,14 @@
-from parseran import read_csv,save_data
-from enkripsi import decode
-user_login=read_csv('user_login.csv')
-user=read_csv('user.csv')
+import parseran
+import enkripsi
+user_login=parseran.read_csv('user_login.csv')
+user=parseran.read_csv('user.csv')
 def save_data_login(id:str,username:str,role:str,oc:str):
     user_login[1][0]=id
     user_login[1][1]=username
     user_login[1][2]=role
     user_login[1][3]=oc
-    user_login[1][3]='True'
-    save_data('user_login.csv',user_login)
+    user_login[1][4]='True'
+    parseran.save_data('user_login.csv',user_login)
 
 def login() :
     account_found = False
@@ -22,7 +22,7 @@ def login() :
         for i in range(len(user)):
             # check if the username and password match
             if username == user[i][1]:
-                if password == decode(user[i][2]):
+                if password == enkripsi.decode(user[i][2]):
                         account_found = True
                         data_username= username
                         data_role = user[i][3]
@@ -41,4 +41,3 @@ def login() :
 
         if not account_found :
             print("Username tidak terdaftar")
-login()
