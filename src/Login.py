@@ -1,8 +1,6 @@
 import parseran
 import enkripsi
-user_login=parseran.read_csv('user_login.csv')
-user=parseran.read_csv('user.csv')
-def save_data_login(id:str,username:str,role:str,oc:str):
+def save_data_login(id:str,username:str,role:str,oc:str,user_login:list):
     user_login[1][0]=id
     user_login[1][1]=username
     user_login[1][2]=role
@@ -11,6 +9,8 @@ def save_data_login(id:str,username:str,role:str,oc:str):
     parseran.save_data('user_login.csv',user_login)
 
 def login() :
+    user_login=parseran.read_csv('user_login.csv')
+    user=parseran.read_csv('user.csv')
     account_found = False
     if user_login[1][4] == "True":
         print(f'Anda telah login dengan username {user_login[1][1]}, silahkan lakukan “LOGOUT” sebelum melakukan login kembali.')
@@ -28,7 +28,7 @@ def login() :
                         data_role = user[i][3]
                         data_id = user[i][0]
                         data_oc = int(user[i][4])
-                        save_data_login(data_id,data_username,data_role,data_oc)
+                        save_data_login(data_id,data_username,data_role,data_oc,user_login)
                         print(f"Selamat datang, {data_role} {username}!")
                         print("Masukkan command 'help' untuk daftar command yang dapat kamu panggil.")
                         break

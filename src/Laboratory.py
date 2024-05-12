@@ -23,7 +23,7 @@ def lihat(data_m:dict):
     print('Selamat datang di Lab Dokter Asep !!!')
     print('============ MONSTER LIST ============')
     for i in range(len(data_m["id"])):
-        print(f'{data_m["id"][i]}. {data_m["type"][i]} (Level: {data_m["lvl"][i]+1})')
+        print(f'{data_m["id"][i]}. {data_m["type"][i]} (Level: {int(data_m["lvl"][i])+1})')
 
     print('============ UPGRADE PRICE ============')
     print('1. Level 1 -> Level 2: 300 OC')
@@ -71,4 +71,3 @@ def lab():
         else:
             print('Maaf, monster yang Anda pilih sudah memiliki level maksimum')
         pilih=input('>>> Pilih monster: ')
-lab()

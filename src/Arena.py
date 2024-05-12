@@ -3,6 +3,7 @@ import Help
 import Battle
 import parseran
 import time
+import Monster
 def show_arena_stat(stat:dict):
     print(25*"=" + "STAT" + 25*"=")
     print(f"""
@@ -44,8 +45,7 @@ def arena():
                 if m[0]==str(id_monster[i]):
                     monster = m
                     monster_level=i+1
-                    print(monster)
-                    monster = monster.edit_att_r_m(monster,monster_level)
+                    monster = Monster.edit_att_r_m(monster,monster_level)
                     result = Battle.fight(monster_level,monster)
                     stat['damage_taken'] += result['damage_taken']
                     stat['total_damage'] += result['total_damage']
@@ -69,5 +69,4 @@ def arena():
             print("Selamat, Anda berhasil menyelesaikan seluruh stage!")
         
         show_arena_stat(stat)
-
-
+arena()

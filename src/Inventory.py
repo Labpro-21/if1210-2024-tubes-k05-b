@@ -1,4 +1,4 @@
-import parseran
+from parseran import read_csv
 def inventory():
     user_login=read_csv('user_login.csv')
     data_oc=user_login[1][3]
@@ -49,7 +49,6 @@ def inventory():
                 inventory["hp_monst"].append(monster[4])
                 inventory["atk_monst"].append(monster[2])
                 inventory["def_monst"].append(monster[3])
-    print(inventory)
     print("================ITEMS=================")
     save_id_p=[]
     for x in range(1,len(potion)):
@@ -62,7 +61,6 @@ def inventory():
         if u_id_monst[x+1]==user_login[1][0]:
             print(f"{x}. Monster    {monst[x]} (Monster-ID: {monst_id[x+1]}, Level: {monst_lvl[x+1]}, HP: {hp_monst[x]}) ")
             save_id_m.append(x)
-    print(len(inventory["monsters"]))
     print('m: monster, p:potion')
 
     id_tampil=input('Ketikkan jenis item dan id untuk menampilkan detail item (m{urutan}/p{urutan}):\n>>> ')
