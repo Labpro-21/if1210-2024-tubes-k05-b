@@ -7,8 +7,8 @@ def Help() -> None:
     if data_status_login=="False":
         print("=========== HELP ===========")
         print("Kamu belum login sebagai role apapun. Silahkan login terlebih dahulu.")
-        print("1. Login: Masuk ke dalam akun yang sudah terdaftar")
-        print("2. Register: Membuat akun baru")
+        print("1. login: Masuk ke dalam akun yang sudah terdaftar")
+        print("2. register: Membuat akun baru")
         print("Footnote:")
         print("1. Untuk menggunakan aplikasi, silahkan masukkan nama fungsi yang terdaftar")
         print("2. Jangan lupa untuk memasukkan input yang valid")
