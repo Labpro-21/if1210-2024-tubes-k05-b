@@ -186,4 +186,4 @@ def shop_management():
                 hapus_p()
         pilihan=input('>>> Pilih aksi (lihat/tambah/ubah/hapus/keluar): ')
     print('Dadah Mr. Yanto, sampai jumpa lagi!')
-shop_management()
+#shop_management()

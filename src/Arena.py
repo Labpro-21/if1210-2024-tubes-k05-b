@@ -20,20 +20,7 @@ def arena():
     if status_login=="False":
         Help.help()
     else:
-        id_monster = []
-        if len(data_monster)>5:
-            while len(id_monster) < 5:
-                random_id = str(RNG.random_number([1, len(data_monster)]))
-                if random_id not in id_monster:
-                    id_monster.append(random_id)
-        else:
-            while len(id_monster) < 5:
-                random_id = str(RNG.random_number([1, len(data_monster)]))
-                if random_id not in id_monster:
-                    id_monster.append(random_id)
-                if len(id_monster) >= len(data_monster):
-                    id_monster.append(random_id)
-        print(id_monster)
+        id_monster = RNG.random_number_arr([1,len(data_monster)],5)
         stat = {
             'total_damage' : 0,
             'damage_taken' : 0,
@@ -69,4 +56,4 @@ def arena():
             print("Selamat, Anda berhasil menyelesaikan seluruh stage!")
         
         show_arena_stat(stat)
-arena()
+#arena()

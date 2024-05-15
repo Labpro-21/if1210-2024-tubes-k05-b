@@ -23,7 +23,7 @@ def lihat(data_m:dict):
     print('Selamat datang di Lab Dokter Asep !!!')
     print('============ MONSTER LIST ============')
     for i in range(len(data_m["id"])):
-        print(f'{data_m["id"][i]}. {data_m["type"][i]} (Level: {int(data_m["lvl"][i])+1})')
+        print(f'{data_m["id"][i]}. {data_m["type"][i]} (Level: {data_m["lvl"][i]})')
 
     print('============ UPGRADE PRICE ============')
     print('1. Level 1 -> Level 2: 300 OC')
@@ -50,24 +50,30 @@ def upgrade_m(lvl_now:int,pilih:int,data_m:list):
     user_login[1][3]=str(data_oc)
     parseran.save_data('user_login.csv',user_login)
 
-
-def lab():
+def laboratory():
     data_m=load_data_m()
+    print(data_m)
     lihat(data_m)
     harga = [300,500,800,1000]
     pilih=input('>>> Pilih monster: ')
     while pilih!='keluar':
-        i=int(pilih)
-        if int(data_m["lvl"][i+1])<5:
-            lvl_now=int(data_m["lvl"][i-1])
-            lvl_tlh_up = lvl_now+1
-            print(f'{data_m["type"][i-1]} akan di-upgrade ke level {lvl_tlh_up}')
-            print(f'Harga untuk melakukan upgrade {harga[lvl_tlh_up-2]}')
-            yakin_up = input('>>> Lanjutkan upgrade (Y/N): ')
-            if yakin_up=='Y':
-                upgrade_m(lvl_now,i,data_m)
+        i=int(pilih)-1
+        if pilih in data_m["id"]:
+            if int(data_m["lvl"][i])<5:
+                lvl_now=int(data_m["lvl"][i-1])
+                lvl_tlh_up = lvl_now+1
+                print(f'{data_m["type"][i-1]} akan di-upgrade ke level {lvl_tlh_up}')
+                print(f'Harga untuk melakukan upgrade {harga[lvl_tlh_up-2]}')
+                yakin_up = input('>>> Lanjutkan upgrade (Y/N): ')
+                if yakin_up=='Y':
+                    upgrade_m(lvl_now,i,data_m)
+                    data_m=load_data_m()
+                    lvl_now=int(data_m["lvl"][i-1])
+                    lvl_tlh_up = lvl_now+1
+                else:
+                    print(f'Woke, anda tidak jadi upgrade {data_m["type"][i-1]}')
             else:
-                print(f'Woke, anda tidak jadi upgrade {data_m["type"][i-1]}')
+                print('Maaf, monster yang Anda pilih sudah memiliki level maksimum')
         else:
-            print('Maaf, monster yang Anda pilih sudah memiliki level maksimum')
+            print('Monster Id Tidak ada di Inventory')
         pilih=input('>>> Pilih monster: ')

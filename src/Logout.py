@@ -6,7 +6,7 @@ def defaultkan_data():
     user_login[1][1]=''
     user_login[1][2]=''
     user_login[1][3]=''
-    user_login[1][3]='False'
+    user_login[1][4]='False'
     parseran.save_data('user_login.csv',user_login)
 
 def logout() :

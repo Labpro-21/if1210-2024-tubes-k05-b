@@ -3,24 +3,26 @@ from Help import Help
 from parseran import read_csv
 from Login import login
 from Exit import Exit
+from Register import register
 from Logout import logout
 from Shop_Management import shop_management
 from Monster_Management import monster_management
 from Shop_Currency import shop_currency
 from Battle import battle
 from Arena import arena
-from Laboratory import lab
+from Laboratory import laboratory
 from Load import loading,read_csv_files
 import colorizer as clr
 from Inventory import inventory
+from Jackpot import jackpot
 # MAIN PROGRAM
 # F13
 folder = loading()
 if folder:
     user, monster, monster_shop, monster_inventory, item_shop, item_inventory = read_csv_files(folder)
-user_login = read_csv('user_login.csv')
 # if load() success
 while True:
+    user_login = read_csv('user_login.csv')
     print('Masukkan perintah:' + clr.colored(" (ketik 'help' untuk melihat semua perintah)", 'red', 'on_black', ['bold', 'blink']))
     menu=input('>>> ')
     if menu=="login":
@@ -37,6 +39,9 @@ while True:
     elif menu=='exit':
         # F16
         Exit()
+    elif menu=='register':
+        # F16
+        register()
     elif menu=='shop_management':
         if user_login[1][2]=='Agent':
             print('Hak akses untuk Admin')
@@ -64,7 +69,17 @@ while True:
             print('Hak akses untuk Agent')
     elif menu=='laboratory':
         if user_login[1][2]=='Agent':
-            lab()
+            laboratory()
+        else:
+            print('Hak akses untuk Agent')
+    elif menu=='jackpot':
+        if user_login[1][2]=='Agent':
+            jackpot()
+        else:
+            print('Hak akses untuk Agent')
+    elif menu=='inventory':
+        if user_login[1][2]=='Agent':
+            inventory()
         else:
             print('Hak akses untuk Agent')
 

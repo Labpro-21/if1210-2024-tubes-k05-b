@@ -6,7 +6,6 @@ def read_csv(filename: str) -> list[list[any]]:
             values.append(split(line))
     #mengembalikan list semua value
     return values
-
 def split(line: str) -> list[any]:
     """
     split memisahkan nilai-nilai dalam satu baris CSV dan mengembalikan sebagai list.

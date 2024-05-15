@@ -1,5 +1,5 @@
 import parseran
-import Load
+import Save
 
 def save_oc_user_login(user:list,user_login:list):
     for u in user:
@@ -16,7 +16,7 @@ def Exit():
         konfirmasi = input("Apakah Anda mau melakukan penyimpanan file yang sudah diubah? (y/n) ")
     if (konfirmasi == "y") or (konfirmasi == "Y"):
         save_oc_user_login(user,user_login)
-        Load.new_save()
+        Save.new_save()
         exit()
     else:
         exit()

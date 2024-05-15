@@ -1,4 +1,5 @@
 from parseran import read_csv
+
 def inventory():
     user_login=read_csv('user_login.csv')
     data_oc=user_login[1][3]
@@ -61,19 +62,17 @@ def inventory():
         if u_id_monst[x+1]==user_login[1][0]:
             print(f"{x}. Monster    {monst[x]} (Monster-ID: {monst_id[x+1]}, Level: {monst_lvl[x+1]}, HP: {hp_monst[x]}) ")
             save_id_m.append(x)
-    print('m: monster, p:potion')
-
-    id_tampil=input('Ketikkan jenis item dan id untuk menampilkan detail item (m{urutan}/p{urutan}):\n>>> ')
-    while id_tampil!="keluar":
-        x=int(id_tampil[1])
-        if id_tampil[0]=="m":
+    tampil=input('Ketikkan jenis item dan id untuk menampilkan detail item (monster/potion):\n>>> ')
+    while tampil!="keluar":
+        x=int(input(f'Pilih {tampil} urutan berapa:\n>>> '))
+        if tampil=="monster":
             if x in save_id_m:
                 print(f"{x}. Monster     {monst[x]} (Monster-ID: {monst_id[x+1]}, Level: {monst_lvl[x+1]}, Atk Power: {atk_monst[x]}, Def Power: {def_monst[x]}, HP: {hp_monst[x]}) ")
             else:
                 print('Tidak ada data')
-        elif id_tampil[0]=="p":
+        elif tampil=="potion":
             if x in save_id_p:
                 print(f"{x}. Potion      Type: {tipe_item[x]}, Quantity: {qty[x]}")
             else:
                 print('Tidak ada data')
-        id_tampil=input('Ketikkan jenis item dan id untuk menampilkan detail item (m{urutan}/p{urutan}):\n>>> ')
+        tampil=input('Ketikkan jenis item dan id untuk menampilkan detail item (monster/potion):\n>>> ')

@@ -63,4 +63,4 @@ def monster_management():
         elif pilih=='2':
             buat_m()
         pilih=input('>>> Pilih Aksi (1/2/keluar): ')
-buat_m()
+#buat_m()

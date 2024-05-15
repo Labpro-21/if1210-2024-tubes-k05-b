@@ -75,8 +75,11 @@ def beli_potion(id_p:int, qty:int):
     if data_oc < qty*int(item_shop[id_p][2]):
         print('OC-mu tidak cukup.')
         return
-    if monster_shop[id_p][1]=='0':
+    if item_shop[id_p][1]=='0':
         print('Stok Potion tersebut sudah habis!')
+        return
+    if qty > int(item_shop[id_p][1]):
+        print('Jumlah yang anda inginkan melebihi stok')
         return
     #cek potion dah ada atau belum, kalau ada stok tambah, klo gk ada buat line baru
     cek_punya=False
@@ -92,7 +95,7 @@ def beli_potion(id_p:int, qty:int):
     #mngurangi stok potion di item_shop
     item_shop[id_p][1]=str(int(item_shop[id_p][1])-qty)
     #mengurangi oc koin
-    data_oc -= 2*int(item_shop[id_p][2])
+    data_oc -= qty*int(item_shop[id_p][2])
     parseran.save_data('item_shop.csv',item_shop)
     user_login[1][3]=str(data_oc)
     parseran.save_data('user_login.csv',user_login)

@@ -29,7 +29,7 @@ def register():
                     print("Username", username, "sudah terpakai, silahkan gunakan username lain!")
                     return
         print("Silahkan pilih salah satu monster sebagai monster awalmu.")
-        print(monsters)
+
         for i in range(1,len(monsters)):
             print(f'{i}. {monsters[i][1]}')
 
@@ -51,7 +51,7 @@ def register():
         for_monster_inventory = [new_agent_id,monster_choice,1]
         monster_inventory.append(for_monster_inventory)
         print("Selamat datang Agent", username + ". Mari kita mengalahkan Dr. Asep Spakbor dengan", monsters[monster_choice][1] + "!")
-        Login.save_data_login(data_id,data_username,data_role,data_oc)
+        Login.save_data_login(data_id,data_username,data_role,data_oc,user_login)
         parseran.save_data('user.csv', users)
         parseran.save_data('monster_inventory.csv', monster_inventory)
     users = []

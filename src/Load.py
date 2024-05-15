@@ -28,7 +28,7 @@ def loading():
     directory = args.folder_name
     parent = os.getcwd()
     path = os.path.join(parent, directory)
-    
+    print('tes')
     # Validasi folder ada
     if not os.path.exists(path):
         print("Nama folder yang diinputkan tidak ada")
@@ -40,4 +40,5 @@ def loading():
                 print(csv + " tidak ditemukan")
                 return None
         os.chdir('../')
+        print('tes')
         return directory
