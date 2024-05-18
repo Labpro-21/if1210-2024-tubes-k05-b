@@ -6,10 +6,11 @@ def defaultkan_data(user_login:list):
     user_login[1][2]=''
     user_login[1][3]=''
     user_login[1][4]='False'
+    return user_login
 
 def logout(user:list,user_login:list) :
     if user_login[1][4]=='True':
-        defaultkan_data(user_login)
+        user_login = defaultkan_data(user_login)
         Exit.save_oc_user_login(user,user_login)
         print("Anda telah logout")
     else:

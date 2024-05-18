@@ -6,7 +6,7 @@ def save_data_login(id:str,username:str,role:str,oc:str,user_login:list):
     user_login[1][2]=role
     user_login[1][3]=oc
     user_login[1][4]='True'
-    parseran.save_data('user_login.csv',user_login)
+    return user_login
 
 def login(user:list,user_login:list) :
     account_found = False
@@ -26,7 +26,7 @@ def login(user:list,user_login:list) :
                         data_role = user[i][3]
                         data_id = user[i][0]
                         data_oc = int(user[i][4])
-                        save_data_login(data_id,data_username,data_role,data_oc,user_login)
+                        user_login = save_data_login(data_id,data_username,data_role,data_oc,user_login)
                         print(f"Selamat datang, {data_role} {username}!")
                         print("Masukkan command 'help' untuk daftar command yang dapat kamu panggil.")
                         break
