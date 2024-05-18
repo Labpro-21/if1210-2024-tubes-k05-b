@@ -19,10 +19,9 @@ def load():
     folder_path = os.path.join(os.getcwd(),"data", args.folder_name)
 
     if os.path.exists(folder_path):
-        #for i in range(4):
-        #    print('Loading' + '.' * i, end='\r')
-        #    time.sleep(0.5)
-        #os.system('cls')
+        for i in range(3):
+            print('Loading' + '.' * i, end='\r')
+            time.sleep(0.5)
         user = read_csv_folder("user.csv",folder_path)
         user_login = read_csv_folder("user_login.csv",folder_path)
         monster = read_csv_folder("monster.csv",folder_path)
@@ -32,6 +31,6 @@ def load():
         item_shop = read_csv_folder("item_shop.csv",folder_path)
         return (True, user, user_login, monster, monster_inventory, monster_shop, item_inventory, item_shop)
     else:
-        print(f"Folder '{args.nama_folder}' tidak ditemukan.")
+        print(f"Folder '{args.folder_name}' tidak ditemukan.")
         return (False, [], [], [], [], [], [], [])
 
