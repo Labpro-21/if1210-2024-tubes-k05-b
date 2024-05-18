@@ -1,7 +1,6 @@
 from parseran import read_csv
 
-def inventory():
-    user_login=read_csv('user_login.csv')
+def inventory(user_login:list,monster:list,potion:list,monster_inventory:list):
     data_oc=user_login[1][3]
     inventory = {
             "user_id_inventory": [],
@@ -27,9 +26,6 @@ def inventory():
     atk_monst = inventory["atk_monst"]
     def_monst = inventory["def_monst"]
     
-    monsters=read_csv('monster.csv')
-    potion=read_csv('item_inventory.csv')
-    monsters_inventory=read_csv('monster_inventory.csv')
     print(f'============ INVENTORY LIST (User ID: {user_login[1][0]}) ============')
     print(f'Jumlah O.W.C.A. Coin-mu sekarang {data_oc}')
 
@@ -38,18 +34,18 @@ def inventory():
         inventory["type"].append(potion[x][1])
         inventory["quantity"].append(potion[x][2])
 
-    for x in range(len(monsters_inventory)):
-        inventory["user_id_monster"].append(monsters_inventory[x][0])
-        inventory["monster_id"].append(monsters_inventory[x][1])
-        inventory["monster_level"].append(monsters_inventory[x][2])
+    for x in range(len(monster_inventory)):
+        inventory["user_id_monster"].append(monster_inventory[x][0])
+        inventory["monster_id"].append(monster_inventory[x][1])
+        inventory["monster_level"].append(monster_inventory[x][2])
 
         # Count each occurrence of monster separately
-        for monster in monsters:
-            if str(monsters_inventory[x][1]) == str(monster[0]):
-                inventory["monsters"].append(monster[1])
-                inventory["hp_monst"].append(monster[4])
-                inventory["atk_monst"].append(monster[2])
-                inventory["def_monst"].append(monster[3])
+        for m in monster:
+            if str(monster_inventory[x][1]) == str(m[0]):
+                inventory["monsters"].append(m[1])
+                inventory["hp_monst"].append(m[4])
+                inventory["atk_monst"].append(m[2])
+                inventory["def_monst"].append(m[3])
     print("================ITEMS=================")
     save_id_p=[]
     for x in range(1,len(potion)):

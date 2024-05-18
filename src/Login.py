@@ -8,9 +8,7 @@ def save_data_login(id:str,username:str,role:str,oc:str,user_login:list):
     user_login[1][4]='True'
     parseran.save_data('user_login.csv',user_login)
 
-def login() :
-    user_login=parseran.read_csv('user_login.csv')
-    user=parseran.read_csv('user.csv')
+def login(user:list,user_login:list) :
     account_found = False
     if user_login[1][4] == "True":
         print(f'Anda telah login dengan username {user_login[1][1]}, silahkan lakukan “LOGOUT” sebelum melakukan login kembali.')

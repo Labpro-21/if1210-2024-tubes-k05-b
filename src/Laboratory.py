@@ -1,9 +1,6 @@
 import parseran
-def load_data_m():
-    user_login = parseran.read_csv('user_login.csv')
+def load_data_m(user_login:list,monster:list,monster_inv:list):
     data_id = user_login[1][0]
-    monster=parseran.read_csv('monster.csv')
-    monster_inv=parseran.read_csv('monster_inventory.csv')
     data_m = {
         "id": [],
         "type": [],
@@ -32,10 +29,8 @@ def lihat(data_m:dict):
     print('4. Level 4 -> Level 5: 1000 OC')
 
 
-def upgrade_m(lvl_now:int,pilih:int,data_m:list):
+def upgrade_m(lvl_now:int,pilih:int,data_m:list,monster_inv:list,user_login:list):
     harga = [300,500,800,1000]
-    monster_inv=parseran.read_csv('monster_inventory.csv')
-    user_login = parseran.read_csv('user_login.csv')
     data_oc = user_login[1][3]
     data_id = user_login[1][0]
     if int(data_oc)<harga[lvl_now+1-2]:
@@ -50,9 +45,8 @@ def upgrade_m(lvl_now:int,pilih:int,data_m:list):
     user_login[1][3]=str(data_oc)
     parseran.save_data('user_login.csv',user_login)
 
-def laboratory():
-    data_m=load_data_m()
-    print(data_m)
+def laboratory(user_login:list,monster:list,monster_inventory:list):
+    data_m=load_data_m(user_login,monster,monster_inventory)
     lihat(data_m)
     harga = [300,500,800,1000]
     pilih=input('>>> Pilih monster: ')
@@ -66,7 +60,7 @@ def laboratory():
                 print(f'Harga untuk melakukan upgrade {harga[lvl_tlh_up-2]}')
                 yakin_up = input('>>> Lanjutkan upgrade (Y/N): ')
                 if yakin_up=='Y':
-                    upgrade_m(lvl_now,i,data_m)
+                    upgrade_m(lvl_now,i,data_m,monster_inventory,user_login)
                     data_m=load_data_m()
                     lvl_now=int(data_m["lvl"][i-1])
                     lvl_tlh_up = lvl_now+1

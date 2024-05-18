@@ -1,10 +1,9 @@
-def read_csv(filename: str) -> list[list[any]]:
-    """mengubah value dari satu csv file menjadi array-array yang terpisah"""
-    values= []
-    with open ("./data/" + filename, 'r') as file:
-        for line in file:
+import os
+def read_csv_folder(file,folder_path) -> list[list[any]]:
+    values=[]
+    with open(os.path.join(folder_path,file)) as f:
+        for line in f:
             values.append(split(line))
-    #mengembalikan list semua value
     return values
 def split(line: str) -> list[any]:
     """
@@ -22,52 +21,26 @@ def split(line: str) -> list[any]:
     out.append(tmp)
     return out
 
-def convert_datas_to_string(data):
-    # Mengubah data kembali menjadi string sesuai format agar dapat di-write ke dalam file csv
-    # I.S. data terdefinisi
-    # F.S. Dikembalikan string sesuai format
-    
-    # KAMUS LOKAL
-    # data_string : string
-    # arr_data : any of user or data_game or riwayat or kepemilikan
-    # arr_data_all_string : array of string
-    
-    # ALGORITMA
-    data_string = ""
-    for arr_data in data:
-        arr_data_all_string = [str(var) for var in arr_data]
-        data_string += ";".join(arr_data_all_string)
-        if not(arr_data==data[len(data)-1]):
-            data_string += "\n"
-    return data_string
+def manual_join(separator: str, items: list) -> str:
+    result = ""
+    for i in range(len(items)):
+        if i > 0:
+            result += separator
+        result += items[i]
+    return result
 
-def save_data(file:str,data:str):
-    # Menulis data ke dalam csv
-    # I.S. data terdefinisi
-    # F.S. memperbarui file yang telah ada dan membuat file csv baru jika belum
-    
-    # KAMUS LOKAL
-    # data : string
-    # f : SEQFILES OF
-    #       (*) array of string
-    #       (1) mark : None
-    
-    # ALGORITMA
-    data = convert_datas_to_string(data)
-    f = open("./data/" + file, "w") 
-    f.write(data)
-    f.close()
-
-def matrix_pop(matrix, item):
-    new_matrix = []
-    for row in matrix:
-        if row != item:
-            new_matrix.append(row)
-    return new_matrix
-
-def write_csv_to_folder(foldername:str,csv:str):
+def write_csv_to_folder(foldername: str, csv: str, matrix: list):
     with open(f'./data/{foldername}/{csv}.csv', 'w', encoding='utf-8') as file:
-        data=read_csv(f'{csv}.csv')
-        for row in data:
-            row_str = ';'.join(row)
-            file.write(row_str + '\n')
+        for row in matrix:
+            row_type_str = [str(var) for var in row]
+            row_str = manual_join(';', row_type_str)
+            if not(row==matrix[len(matrix)-1]):
+                file.write(row_str + '\n')
+            else:
+                file.write(row_str)
+
+def copy(array:list)->list:
+    arr_copy = ['' for _ in range(len(array))]
+    for i in range(len(array)):
+        arr_copy[i] = array[i]
+    return arr_copy

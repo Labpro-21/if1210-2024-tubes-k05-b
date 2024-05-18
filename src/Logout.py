@@ -9,9 +9,7 @@ def defaultkan_data():
     user_login[1][4]='False'
     parseran.save_data('user_login.csv',user_login)
 
-def logout() :
-    user_login=parseran.read_csv('user_login.csv')
-    user=parseran.read_csv('user.csv')
+def logout(user:list,user_login:list) :
     if user_login[1][4]=='True':
         defaultkan_data()
         Exit.save_oc_user_login(user,user_login)

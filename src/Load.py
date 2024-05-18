@@ -1,44 +1,37 @@
+"""LOAD"""
+
 import argparse
 import os
-import parseran
+import sys
+import time
+from parseran import read_csv_folder
 
-def read_csv_files(folder):
-    os.chdir(folder)
-    user = parseran.read_csv("user.csv")
-    monster = parseran.read_csv("monster.csv")
-    monster_shop = parseran.read_csv("monster_shop.csv")
-    monster_inventory = parseran.read_csv("monster_inventory.csv")
-    item_shop = parseran.read_csv("item_shop.csv")
-    item_inventory = parseran.read_csv("item_inventory.csv")
-    os.chdir('../')
-    return user, monster, monster_shop, monster_inventory, item_shop, item_inventory
 
-def loading():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("folder_name",nargs='?', help="Input nama folder csv (required)")  
+def load():
+    parser = argparse.ArgumentParser(description="Menjalankan main.py dalam folder yang spesifik di dalam folder parent 'data'")
+    parser.add_argument("folder_name", nargs='?', help="Nama folder di dalam parent 'data'")
     args = parser.parse_args()
 
-    # get the parameter
-    folder_name = args.folder_name
-    if folder_name == None:
-        print("\nTidak ada nama folder yang diberikan!\n")
-        print("Usage: python main.py <nama_folder>")
-        exit()
-    # Berpindah directory ke folder csv
-    directory = args.folder_name
-    parent = os.getcwd()
-    path = os.path.join(parent, directory)
-    print('tes')
-    # Validasi folder ada
-    if not os.path.exists(path):
-        print("Nama folder yang diinputkan tidak ada")
+    if args.folder_name is None:
+        print("Tidak ada nama folder yang diberikan!\nUsage : python main.py <folder_name>")
+        sys.exit()
+
+    folder_path = os.path.join(os.getcwd(),"data", args.folder_name)
+
+    if os.path.exists(folder_path):
+        #for i in range(4):
+        #    print('Loading' + '.' * i, end='\r')
+        #    time.sleep(0.5)
+        #os.system('cls')
+        user = read_csv_folder("user.csv",folder_path)
+        user_login = read_csv_folder("user_login.csv",folder_path)
+        monster = read_csv_folder("monster.csv",folder_path)
+        monster_inventory = read_csv_folder("monster_inventory.csv",folder_path)
+        monster_shop = read_csv_folder("monster_shop.csv",folder_path)
+        item_inventory = read_csv_folder("item_inventory.csv",folder_path)
+        item_shop = read_csv_folder("item_shop.csv",folder_path)
+        return (True, user, user_login, monster, monster_inventory, monster_shop, item_inventory, item_shop)
     else:
-        os.chdir('./' + directory)
-        list_csv = ["user.csv","monster.csv","monster_shop.csv","monster_inventory.csv","item_shop.csv","item_inventory.csv"]
-        for csv in list_csv:
-            if not (os.path.exists(csv)):
-                print(csv + " tidak ditemukan")
-                return None
-        os.chdir('../')
-        print('tes')
-        return directory
+        print(f"Folder '{args.nama_folder}' tidak ditemukan.")
+        return (False, [], [], [], [], [], [], [])
+

@@ -6,13 +6,10 @@ def check_id_m(monster:list,id_m:str,data_id:str)->bool:
     for m in monster:
         if m[0]==id_m and m[1]==id_m:
             found=True
-def jackpot() -> None:
-    user_login = read_csv('user_login.csv')
+def jackpot(user_login:list,monster:list,monster_inventory:list) -> None:
     data_oc = int(user_login[1][3])
     data_id = user_login[1][0]
-    monster = read_csv('monster.csv')
-    monster_inventory=read_csv('monster_inventory.csv')
-
+    print(data_oc)
     print("Apakah Anda siap untuk menguji keberuntungan? Menangkan Snorleks dengan 400 OC saja !!!")
 
     items = {
@@ -48,13 +45,12 @@ def jackpot() -> None:
                         random_id = random_number([0,len(monster)-1])
                         found = check_id_m(monster_inventory,str(random_id),data_id)
                     monster_inventory.append([f'{data_id}',f'{random_id + 1}', '1'])
-                    save_data('monster_inventory.csv',monster_inventory)
                     print(f"JACKPOT!!! Selamat, Anda mendapatkan monster {monster[random_id+ 1][1]}")
                 else:
                     reward = items[result[0]][1] + items[result[1]][1] + items[result[2]][1]
                     data_oc += reward
                     user_login[1][3] = str(data_oc)
-                    save_data('user_login.csv',user_login)
+                    print(user_login[1][3])
                     print(f"Anda mendapatan {reward} OC, OC Anda sekarang {data_oc}.")
             else:
                 print(f"Anda tidak memiliki cukup OC, OC anda hanya {data_oc}.")

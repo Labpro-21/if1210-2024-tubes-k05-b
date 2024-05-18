@@ -4,9 +4,7 @@ import parseran
 #resilience ningkatin 5% def (tapi klo defnya mentok 50)
 #healing mengsi darah sebanyak 25% dari base hp klo diserang
 #mentoknya harus di base hpnya(pas udah ditaambahin)
-def load_data_p(item_inv:list)->list:
-    user_login=parseran.read_csv('user_login.csv')
-    item_inv=parseran.read_csv('item_inventory.csv')
+def load_data_p(item_inv:list,user_login:list)->list:
     data_id=user_login[1][0]
     data_p = []
     for p in item_inv:

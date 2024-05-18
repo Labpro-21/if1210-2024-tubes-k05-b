@@ -1,6 +1,5 @@
 import parseran
-def Help() -> None:
-    user_login=parseran.read_csv('user_login.csv')
+def Help(user_login:list) -> None:
     data_role=user_login[1][2]
     data_username=user_login[1][1]
     data_status_login=user_login[1][4]
@@ -9,9 +8,6 @@ def Help() -> None:
         print("Kamu belum login sebagai role apapun. Silahkan login terlebih dahulu.")
         print("1. login: Masuk ke dalam akun yang sudah terdaftar")
         print("2. register: Membuat akun baru")
-        print("Footnote:")
-        print("1. Untuk menggunakan aplikasi, silahkan masukkan nama fungsi yang terdaftar")
-        print("2. Jangan lupa untuk memasukkan input yang valid")
     elif data_role=="Agent":
         print(f"Halo Agent {data_username}. Kamu memanggil command HELP. Kamu memilih jalan yang benar, semoga kamu tidak sesat kemudian.")
         print("============ HELP ============")
@@ -24,12 +20,10 @@ def Help() -> None:
         print("7. laboratory - Untuk melakukan upgrade monster yang dimiliki di inventory")
         print("8. save - Untuk melakukan penyimpanan data")
         print("9. exit - Untuk keluar dari program")
+        print("10. jackpot - untuk bermain jackpot dan mendapatkan koin/monster")
         print("\n")
-        print("Footnote:")
-        print('1. Untuk menggunakan aplikasi, silahkan masukkan nama fungsi yang terdaftar')
-        print('2. Jangan lupa untuk memasukkan input yang valid')
     elif data_role=="Admin":
-        print('Selamat datang, Admin. Berikut adalah hal-hal yang dapat kamu lakukan:') 
+        print(f'Selamat datang, Admin {data_username}. Berikut adalah hal-hal yang dapat kamu lakukan:') 
         print("============ HELP ============")
         print("1. register - Untuk melakukan registrasi user baru")
         print("2. login - Untuk melakukan login ke dalam sistem")
@@ -39,6 +33,6 @@ def Help() -> None:
         print("6. save - Untuk melakukan penyimpanan data")
         print("7.  exit - Untuk keluar dari program")
         print("\n")
-        print("Footnote:")
-        print("1. Untuk menggunakan aplikasi, silahkan masukkan nama fungsi yang terdaftar")
-        print("2. Jangan lupa untuk memasukkan input yang valid")
+    print("Footnote:")
+    print("1. Untuk menggunakan aplikasi, silahkan masukkan nama fungsi yang terdaftar")
+    print("2. Jangan lupa untuk memasukkan input yang valid")

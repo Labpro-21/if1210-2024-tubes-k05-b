@@ -9,17 +9,15 @@ def check_m(monster:list,type_m:str)->bool:
         if m[1]==type_m:
             found=True
     return found
-def lihat_m():
+def lihat_m(monster:list):
     print('ID | Type          | ATK Power | DEF Power | HP ')
-    monster=parseran.read_csv('monster.csv')
     for m in monster:
         if m[0]!="id":
             spasi_atk= len(' ATK Power ')-len(m[2])-1
             spasi_def= len(' DEF Power ')-len(m[3])-1
             print(f'{m[0]}  | {m[1]}         | {m[2]}' + spasi_atk*" " + f'| {m[3]}' + spasi_def*" " + f'| {m[4]} ')
 
-def buat_m():
-    monster=parseran.read_csv('monster.csv')
+def buat_m(monster:list):
     print('Memulai pembuatan monster baru')
     type_m=input('>>> Masukkan type / Nama : ')
     found=check_m(monster,type_m)
@@ -49,18 +47,17 @@ def buat_m():
     if yakin_tambah=='Y':
         print('Monster baru telah ditambahkan!')
         monster.append([len(monster),type_m,atk_m,def_m,hp_m])
-        parseran.save_data('monster.csv',monster)
     else:
         print('Monster gagal ditambahkan!')
-def monster_management():
+def monster_management(monster:list):
     print('SELAMAT DATANG DI DATABASE PARA MONSTER !!!')
     print('1. Tampilkan semua Monster')
     print('2. Tambah Monster baru')
     pilih=input('>>> Pilih Aksi (1/2/keluar): ')
     while pilih!='keluar':
         if pilih=='1':
-            lihat_m()
+            lihat_m(monster)
         elif pilih=='2':
-            buat_m()
+            buat_m(monster)
         pilih=input('>>> Pilih Aksi (1/2/keluar): ')
 #buat_m()
