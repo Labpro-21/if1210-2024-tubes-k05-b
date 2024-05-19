@@ -10,7 +10,10 @@ def lihat_m(monster:list):
         if m[0]!="id":
             spasi_atk= len(' ATK Power ')-len(m[2])-1
             spasi_def= len(' DEF Power ')-len(m[3])-1
-            print(f'{m[0]}  | {m[1]}         | {m[2]}' + spasi_atk*" " + f'| {m[3]}' + spasi_def*" " + f'| {m[4]} ')
+            if len(str(m[0]))>1:
+                print(f'{m[0]} | {m[1]}         | {m[2]}' + spasi_atk*" " + f'| {m[3]}' + spasi_def*" " + f'| {m[4]} ')
+            else:
+                print(f'{m[0]}  | {m[1]}         | {m[2]}' + spasi_atk*" " + f'| {m[3]}' + spasi_def*" " + f'| {m[4]} ')
 
 def buat_m(monster:list)->list:
     print('Memulai pembuatan monster baru')

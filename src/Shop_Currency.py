@@ -73,8 +73,7 @@ def beli_monster(id_m:int,monster_shop:list,monster_inventory:list,user_login:li
     new_monster =[data_id,monster[id_m][0],'1']
     monster_inventory.append(new_monster)
     user_login[1][3]=str(data_oc)
-    print(user_login[1][3])
-    print(f'Berhasil membeli item: {monster[id_m][1]}. Item sudah masuk ke inventory-mu')
+    print(f'Berhasil membeli monster: {monster[id_m][1]}. Monster sudah masuk ke inventory-mu')
     return (monster_inventory,user_login)
 
 def beli_potion(id_p:int, qty:int,item_inventory:list,item_shop:list,user_login:list)->(list,list):
@@ -106,7 +105,6 @@ def beli_potion(id_p:int, qty:int,item_inventory:list,item_shop:list,user_login:
     #mengurangi oc koin
     data_oc -= qty*int(item_shop[id_p][2])
     user_login[1][3]=str(data_oc)
-    print(item_inventory)
     print(f'Berhasil membeli item: {qty} {item_shop[id_p][0]}. Item sudah masuk ke inventory-mu')
     return (item_inventory,user_login)
 
@@ -121,7 +119,7 @@ def shop_currency(monster_shop:list,item_shop:list,monster_inventory:list,item_i
             elif lihat_apa=='potion':
                 lihat_potion(item_shop)
         elif pilihan=='beli':
-            print(f'Umlah O.W.C.A koin mu: {user_login[1][3]}')
+            print(f'Jumlah O.W.C.A koin mu: {user_login[1][3]}')
             beli_apa = input('>>> Mau beli apa? (monster/potion): ')
             if beli_apa=='monster':
                 id_monst = int(input('>>> Masukkan id monster: '))

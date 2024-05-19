@@ -8,7 +8,7 @@ def check_id_m(monster:list,id_m:str,data_id:str)->bool:
 def jackpot(user_login:list,monster:list,monster_inventory:list) -> (list,list):
     data_oc = int(user_login[1][3])
     data_id = user_login[1][0]
-    print(data_oc)
+    print(f'Jumlah OC anda {data_oc}')
     print("Apakah Anda siap untuk menguji keberuntungan? Menangkan Snorleks dengan 400 OC saja !!!")
 
     items = {

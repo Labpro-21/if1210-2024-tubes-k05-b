@@ -13,7 +13,7 @@ Total Damage Diberikan  : {stat['total_damage']}
 Total Damage Diterima   : {stat['damage_taken']}
 """)
 
-def arena(user_login:list,monster:list)->list:
+def arena(user_login:list,data_monster:list,item_inv:list,monster_inv:list)->list:
     status_login=user_login[1][4]
     if status_login=="False":
         Help.help()
@@ -31,7 +31,7 @@ def arena(user_login:list,monster:list)->list:
                     monster = m
                     monster_level=i+1
                     monster = Monster_edt.edit_att_r_m(monster,monster_level)
-                    result = Battle.fight(monster_level,monster)
+                    result = Battle.fight(monster_level,monster,user_login,item_inv,monster_inv,data_monster)
                     stat['damage_taken'] += result['damage_taken']
                     stat['total_damage'] += result['total_damage']
 

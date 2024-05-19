@@ -12,7 +12,6 @@ def inventory(user_login:list,monster:list,potion:list,monster_inventory:list):
             "atk_monst" : [],
             "def_monst" : [],
         }
-
     u_id_invent = inventory["user_id_inventory"]
     tipe_item = inventory["type"]
     qty = inventory["quantity"]

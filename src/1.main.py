@@ -30,7 +30,7 @@ if sukses:
     print(clr.colored('\nSelamat datang di program OWCA!','green'))
     while True:
         print('\nMasukkan perintah:' + clr.colored(" (ketik 'help' untuk melihat semua perintah)", 'red', 'on_black', ['bold', 'blink']))
-        menu=input('>>> ')
+        menu=input(clr.colored('>>> ','blue'))
         """user_login[1][2]='Admin'"""
         if menu=="login":
             #F01
@@ -45,10 +45,10 @@ if sukses:
             Help(user_login_baru)
         elif menu=='exit':
             # F16
-            Exit(user_baru,user_login_baru)
+            Exit(user_baru,user_login_baru,monster_baru,monster_shop_baru,monster_inventory_baru,item_inventory_baru,item_shop_baru)
         elif menu=='register':
             # F16
-            register(user_baru,monster_baru,monster_inventory_baru,user_login_baru)
+            (user_baru,monster_inventory_baru)=register(user_baru,monster_baru,monster_inventory_baru,user_login_baru)
         elif menu=='shop_management':
             if user_login_baru[1][2]=='Agent':
                 print('Hak akses untuk Admin')
@@ -71,7 +71,7 @@ if sukses:
                 print('Hak akses untuk Agent')
         elif menu=='arena':
             if user_login_baru[1][2]=='Agent':
-                user_login_baru = arena(user_login_baru,monster_baru)
+                user_login_baru = arena(user_login_baru,monster_baru,item_inventory_baru,monster_inventory_baru)
             else:
                 print('Hak akses untuk Agent')
         elif menu=='laboratory':
