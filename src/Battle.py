@@ -1,5 +1,5 @@
 import time
-import Monster
+import Monster_edt
 import Potion
 import RNG
 import parseran
@@ -7,18 +7,11 @@ import colorizer as clr
 import os
 from Help import Help
 
-user_login = parseran.read_csv('user_login.csv')
-data_username = user_login[1][1]
-data_id = user_login[1][0]
-
-item_inv = parseran.read_csv('item_inventory.csv')
-monster = parseran.read_csv('monster.csv')
-
-def kurangi_qty(data_id: str, type_p: str,item_inv:list):
+def kurangi_qty(data_id: str, type_p: str,item_inv:list)->list:
     for p in item_inv:
         if p[0] == data_id and p[1] == type_p:
             p[2] = str(int(p[2]) - 1)
-    parseran.save_data('item_inventory.csv', item_inv)
+    return item_inv
 
 def fight(monster_lvl:int,r_monster:list,user_login:list,item_inv:list,monster_inv:list,monster:list):
     data_username = user_login[1][1]
@@ -28,13 +21,13 @@ def fight(monster_lvl:int,r_monster:list,user_login:list,item_inv:list,monster_i
         'total_damage': 0,
         'damage_taken': 0,
     }
-    r_monster = Monster.edit_att_r_m(r_monster, monster_lvl)
+    r_monster = Monster_edt.edit_att_r_m(r_monster, monster_lvl)
     print(f'RAWRR, Monster {r_monster[1]} telah muncul !!!\n')
-    Monster.monster_art_musuh()
+    Monster_edt.monster_art_musuh()
 
     print(12 * "=" + "MONSTER LIST" + 12 * "=" + '\n')
 
-    user_monster = Monster.edit_att_m(monster_inv,monster,user_login)
+    user_monster = Monster_edt.edit_att_m(monster_inv,monster,user_login)
     for idx in range(len(user_monster["type"])):
         print(f'{idx+1}. {user_monster["type"][idx]}')
     
@@ -53,12 +46,12 @@ def fight(monster_lvl:int,r_monster:list,user_login:list,item_inv:list,monster_i
     base_hp = user_monster["hp"][pilih - 1]
     
     time.sleep(1)
-    os.system('cls')
-    Monster.monster_art_user()
+    
+    Monster_edt.monster_art_user()
     print(f"Agent {data_username} mengeluarkan monster {player_monster[1]} !!!\n")
-    Monster.show_monster(player_monster, player_monster[5])
+    Monster_edt.show_monster(player_monster, player_monster[5])
     time.sleep(2)
-    os.system('cls')
+    
 
     current_potion = {
         'strength': False,
@@ -87,9 +80,9 @@ def fight(monster_lvl:int,r_monster:list,user_login:list,item_inv:list,monster_i
                 print(f"SCHWINKKK, {player_monster[1]} menyerang {r_monster[1]}(musuh) !!!\n")
                 hp_awal = r_monster[4]
                 time.sleep(1)
-                os.system('cls')
-                r_monster = Monster.atk(player_monster, r_monster)
-                Monster.show_monster(r_monster, monster_lvl)
+                
+                r_monster = Monster_edt.atk(player_monster, r_monster)
+                Monster_edt.show_monster(r_monster, monster_lvl)
                 stat["total_damage"] += hp_awal - r_monster[4]
             elif choice == 2:
                 user_potion = Potion.load_data_p(item_inv,user_login)
@@ -139,7 +132,7 @@ def fight(monster_lvl:int,r_monster:list,user_login:list,item_inv:list,monster_i
                             print(f"Setelah meminum ramuan ini, luka-luka yang ada di dalam tubuh {player_monster[1]} sembuh dengan cepat. Dalam sekejap, {player_monster[1]} terlihat kembali prima dan siap melanjutkan pertempuran") 
 
                         current_potion[potion_name] = True
-                        kurangi_qty(data_id, potion_name, item_inv)
+                        item_inv = kurangi_qty(data_id, potion_name, item_inv)
                         break
             elif choice == 3:
                 print("Berhasil kabur!")
@@ -148,23 +141,23 @@ def fight(monster_lvl:int,r_monster:list,user_login:list,item_inv:list,monster_i
             
             turn += 1
             time.sleep(3.25)
-            os.system('cls')
+            
         else:
             print("\n" + 12 * "=" + clr.colored(f"TURN {turn} ({r_monster[1]} (musuh))", "blue") + 12 * "=")
             print(f"SCHWINKKK, {r_monster[1]} (musuh) menyerang {player_monster[1]} !!!")
             hp_awal = player_monster[4]
             time.sleep(1)
-            os.system('cls')
-            player_monster = Monster.atk(r_monster, player_monster)
-            Monster.show_monster(player_monster, player_monster[5])
+            
+            player_monster = Monster_edt.atk(r_monster, player_monster)
+            Monster_edt.show_monster(player_monster, player_monster[5])
 
             stat['damage_taken'] += hp_awal - player_monster[4]
             turn += 1
             time.sleep(3.25)
-            os.system('cls')
+            
             
 
-def battle(user_login:list,monster:list,item_inv:list,monster_inv:list):
+def battle(user_login:list,monster:list,item_inv:list,monster_inv:list)->list:
     if user_login[1][4] == 'False':
         Help()
     else:
@@ -183,8 +176,8 @@ def battle(user_login:list,monster:list,item_inv:list,monster_inv:list):
     if result['win']:
         reward = RNG.random_number([5, 30])
         user_login[1][3] = str(int(user_login[1][3]) + reward)
-        parseran.save_data('user_login.csv', user_login)
         print(clr.colored(f"Selamat, Anda berhasil mengalahkan monster {random_monster[1]}. Anda mendapatkan {reward} OC.", 'yellow'))
+        return user_login
     else:
         print(clr.colored(f"Yahhh, Anda dikalahkan monster {random_monster[1]}. Jangan menyerah, coba lagi !!!", 'grey'))
 # battle()

@@ -1,8 +1,3 @@
-import parseran
-monster=parseran.read_csv('monster.csv')
-monster_shop=parseran.read_csv('monster_shop.csv')
-monster_inv=parseran.read_csv('monster_inventory.csv')
-
 def check_m(monster:list,type_m:str)->bool:
     found=False
     for m in monster:
@@ -17,7 +12,7 @@ def lihat_m(monster:list):
             spasi_def= len(' DEF Power ')-len(m[3])-1
             print(f'{m[0]}  | {m[1]}         | {m[2]}' + spasi_atk*" " + f'| {m[3]}' + spasi_def*" " + f'| {m[4]} ')
 
-def buat_m(monster:list):
+def buat_m(monster:list)->list:
     print('Memulai pembuatan monster baru')
     type_m=input('>>> Masukkan type / Nama : ')
     found=check_m(monster,type_m)
@@ -47,6 +42,7 @@ def buat_m(monster:list):
     if yakin_tambah=='Y':
         print('Monster baru telah ditambahkan!')
         monster.append([len(monster),type_m,atk_m,def_m,hp_m])
+        return monster
     else:
         print('Monster gagal ditambahkan!')
 def monster_management(monster:list):
@@ -58,6 +54,6 @@ def monster_management(monster:list):
         if pilih=='1':
             lihat_m(monster)
         elif pilih=='2':
-            buat_m(monster)
+            monster = buat_m(monster)
         pilih=input('>>> Pilih Aksi (1/2/keluar): ')
 #buat_m()

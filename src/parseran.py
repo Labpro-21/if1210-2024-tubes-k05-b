@@ -21,6 +21,13 @@ def split(line: str) -> list[any]:
     out.append(tmp)
     return out
 
+def matrix_pop(matrix:list, item:list)->list:
+    new_matrix = []
+    for row in matrix:
+        if row != item:
+            new_matrix.append(row)
+    return new_matrix
+
 def manual_join(separator: str, items: list) -> str:
     result = ""
     for i in range(len(items)):

@@ -1,12 +1,11 @@
 from RNG import random_number_arr,random_number
-from parseran import read_csv,save_data
 
 def check_id_m(monster:list,id_m:str,data_id:str)->bool:
     found=False
     for m in monster:
         if m[0]==id_m and m[1]==id_m:
             found=True
-def jackpot(user_login:list,monster:list,monster_inventory:list) -> None:
+def jackpot(user_login:list,monster:list,monster_inventory:list) -> (list,list):
     data_oc = int(user_login[1][3])
     data_id = user_login[1][0]
     print(data_oc)
@@ -50,7 +49,6 @@ def jackpot(user_login:list,monster:list,monster_inventory:list) -> None:
                     reward = items[result[0]][1] + items[result[1]][1] + items[result[2]][1]
                     data_oc += reward
                     user_login[1][3] = str(data_oc)
-                    print(user_login[1][3])
                     print(f"Anda mendapatan {reward} OC, OC Anda sekarang {data_oc}.")
             else:
                 print(f"Anda tidak memiliki cukup OC, OC anda hanya {data_oc}.")
@@ -60,4 +58,5 @@ def jackpot(user_login:list,monster:list,monster_inventory:list) -> None:
             break
         else:
             print("Input tidak valid")
+    return (monster_inventory,user_login)
 #jackpot()

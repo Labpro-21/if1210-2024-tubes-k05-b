@@ -3,7 +3,7 @@ import Help
 import Battle
 import parseran
 import time
-import Monster
+import Monster_edt
 def show_arena_stat(stat:dict):
     print(25*"=" + "STAT" + 25*"=")
     print(f"""
@@ -13,10 +13,8 @@ Total Damage Diberikan  : {stat['total_damage']}
 Total Damage Diterima   : {stat['damage_taken']}
 """)
 
-def arena():
-    user_login = parseran.read_csv("user_login.csv")
+def arena(user_login:list,monster:list)->list:
     status_login=user_login[1][4]
-    data_monster = parseran.read_csv("monster.csv")
     if status_login=="False":
         Help.help()
     else:
@@ -32,7 +30,7 @@ def arena():
                 if m[0]==str(id_monster[i]):
                     monster = m
                     monster_level=i+1
-                    monster = Monster.edit_att_r_m(monster,monster_level)
+                    monster = Monster_edt.edit_att_r_m(monster,monster_level)
                     result = Battle.fight(monster_level,monster)
                     stat['damage_taken'] += result['damage_taken']
                     stat['total_damage'] += result['total_damage']
@@ -47,7 +45,6 @@ def arena():
                 time.sleep(0.75)
                 if not(stat['stage'] == 5):
                     print("Memulai stage berikutnya...")
-                parseran.save_data('user_login.csv',user_login)
             else:
                 print(f"Yahhh, Anda dikalahkan monster {monster[1]}. Jangan menyerah, coba lagi !!!")
                 break
@@ -56,4 +53,5 @@ def arena():
             print("Selamat, Anda berhasil menyelesaikan seluruh stage!")
         
         show_arena_stat(stat)
+        return user_login
 #arena()

@@ -1,6 +1,5 @@
-import parseran
 import Exit
-def defaultkan_data(user_login:list):
+def defaultkan_data(user_login:list)->list:
     user_login[1][0]=''
     user_login[1][1]=''
     user_login[1][2]=''
@@ -11,7 +10,7 @@ def defaultkan_data(user_login:list):
 def logout(user:list,user_login:list) :
     if user_login[1][4]=='True':
         user_login = defaultkan_data(user_login)
-        Exit.save_oc_user_login(user,user_login)
+        user = Exit.save_oc_user_login(user,user_login)
         print("Anda telah logout")
     else:
         print('Logout gagal!')

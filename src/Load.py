@@ -19,9 +19,9 @@ def load():
     folder_path = os.path.join(os.getcwd(),"data", args.folder_name)
 
     if os.path.exists(folder_path):
-        for i in range(3):
+        """for i in range(3):
             print('Loading' + '.' * i, end='\r')
-            time.sleep(0.5)
+            time.sleep(0.5)"""
         user = read_csv_folder("user.csv",folder_path)
         user_login = read_csv_folder("user_login.csv",folder_path)
         monster = read_csv_folder("monster.csv",folder_path)

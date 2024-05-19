@@ -1,21 +1,17 @@
-from parseran import read_csv
 from RNG import random_number
 import math
 import colorizer as clr
-monster_inv=read_csv('monster_inventory.csv')
-monster=read_csv('monster.csv')
-user_login=read_csv('user_login.csv')
-data_id = user_login[1][0]
-edit_att={
-    "id": [],
-    "type": [],
-    "atk": [],
-    "def": [],
-    "hp": [],
-    "lvl": [],
-}
 
-def edit_att_m():
+def edit_att_m(monster_inv:list,monster:list,user_login:list)->dict:
+    data_id = user_login[1][0]
+    edit_att = {
+        "id": [],
+        "type": [],
+        "atk": [],
+        "def": [],
+        "hp": [],
+        "lvl": [],
+    }
     for m in monster_inv:
         if m[0]==data_id and m[1] not in edit_att["id"]:
             edit_att["id"].append(m[1])

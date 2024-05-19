@@ -31,7 +31,7 @@ if sukses:
     while True:
         print('\nMasukkan perintah:' + clr.colored(" (ketik 'help' untuk melihat semua perintah)", 'red', 'on_black', ['bold', 'blink']))
         menu=input('>>> ')
-        """user_login_baru[1][2]='Admin'"""
+        """user_login[1][2]='Admin'"""
         if menu=="login":
             #F01
             login(user_baru,user_login_baru)
@@ -66,12 +66,12 @@ if sukses:
                 print('Hak akses untuk Agent')
         elif menu=='battle':
             if user_login_baru[1][2]=='Agent':
-                battle(user_login_baru,monster_baru,item_inventory_baru,monster_inventory_baru)
+                user_login_baru = battle(user_login_baru,monster_baru,item_inventory_baru,monster_inventory_baru)
             else:
                 print('Hak akses untuk Agent')
         elif menu=='arena':
             if user_login_baru[1][2]=='Agent':
-                arena()
+                user_login_baru = arena(user_login_baru,monster_baru)
             else:
                 print('Hak akses untuk Agent')
         elif menu=='laboratory':
@@ -81,7 +81,7 @@ if sukses:
                 print('Hak akses untuk Agent')
         elif menu=='jackpot':
             if user_login_baru[1][2]=='Agent':
-                jackpot(user_login_baru,monster_baru,monster_inventory_baru)
+                (monster_inventory_baru,user_login_baru)=jackpot(user_login_baru,monster_baru,monster_inventory_baru)
             else:
                 print('Hak akses untuk Agent')
         elif menu=='inventory':

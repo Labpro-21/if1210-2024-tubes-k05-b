@@ -1,6 +1,6 @@
 import parseran
 import enkripsi
-def save_data_login(id:str,username:str,role:str,oc:str,user_login:list):
+def save_data_login(id:str,username:str,role:str,oc:str,user_login:list)->list:
     user_login[1][0]=id
     user_login[1][1]=username
     user_login[1][2]=role
@@ -22,10 +22,10 @@ def login(user:list,user_login:list) :
             if username == user[i][1]:
                 if password == enkripsi.decode(user[i][2]):
                         account_found = True
+                        data_id = user[i][0]
                         data_username= username
                         data_role = user[i][3]
-                        data_id = user[i][0]
-                        data_oc = int(user[i][4])
+                        data_oc = user[i][4]
                         user_login = save_data_login(data_id,data_username,data_role,data_oc,user_login)
                         print(f"Selamat datang, {data_role} {username}!")
                         print("Masukkan command 'help' untuk daftar command yang dapat kamu panggil.")

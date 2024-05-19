@@ -60,8 +60,9 @@ def tambah_m(monster:list,monster_shop:list)->list:
         print('id yang anda masukkan tidak valid')
     return monster_shop
 def tambah_p(item_shop:list)->list:
-    a = ['magic','power']
-    b = [item_shop[i][1] for i in range(1, len(item_shop))]
+    a = ['magic','power', 'strength', 'resilience', 'healing']
+    b = [item_shop[i][0] for i in range(1, len(item_shop))]
+    print(b)
     c = cari_yg_gk_ada(a,b)
     print('ID | Type |')
     idx=1
@@ -117,7 +118,6 @@ def ubah_p(item_shop:list)->list:
             print(f'{shop_p["type_p"][id-1]} telah berhasil diubah dengan stok baru sejumlah {stok_new}')
         elif harga_baru!='':
             print(f'{shop_p["type_p"][id-1]} telah berhasil diubah dengan harga baru {harga_baru}!')
-        parseran.save_data('item_shop.csv',item_shop)
     else:
         print(f'id {id} tidak terdapat di dalam item_shop.csv')
     return item_shop

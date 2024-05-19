@@ -1,5 +1,3 @@
-from parseran import read_csv
-
 def inventory(user_login:list,monster:list,potion:list,monster_inventory:list):
     data_oc=user_login[1][3]
     inventory = {
