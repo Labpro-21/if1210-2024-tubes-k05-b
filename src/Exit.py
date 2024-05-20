@@ -1,4 +1,3 @@
-import parseran
 import Save
 
 def save_oc_user_login(user:list,user_login:list):
@@ -15,6 +14,6 @@ def Exit(user:list,user_login:list,monster:list,monster_shop:list,monster_invent
     if (konfirmasi == "y") or (konfirmasi == "Y"):
         user = save_oc_user_login(user,user_login)
         Save.new_save(user,user_login,monster,monster_shop,monster_inventory,item_inventory,item_shop)
-        exit()
+        print('Data csv sudah tersimpan')
     else:
-        exit()
+        print('Data csv tidak tersimpan')

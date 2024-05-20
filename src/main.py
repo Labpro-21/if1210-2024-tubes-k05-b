@@ -28,13 +28,24 @@ item_shop_baru = copy(item_shop)
     # if load() success
 if sukses:
     print(clr.colored('\nSelamat datang di program OWCA!','green'))
-    while True:
-        print('\nMasukkan perintah:' + clr.colored(" (ketik 'help' untuk melihat semua perintah)", 'red', 'on_black', ['bold', 'blink']))
+    print('\nMasukkan perintah:' + clr.colored(" (ketik 'help' untuk melihat semua perintah)", 'red', 'on_black', ['bold', 'blink']))
+    menu=input(clr.colored('>>> ','blue'))
+    """user_login[1][2]='Admin'"""
+    while menu != 'login' and menu != 'help' and menu !='register':
+        print('Anda belum login')
         menu=input(clr.colored('>>> ','blue'))
-        """user_login[1][2]='Admin'"""
-        if menu=="login":
-            #F01
+    if menu == 'login':
+        login(user_baru,user_login_baru)
+    elif menu=='register':
+        (user_baru,monster_inventory_baru)=register(user_baru,monster_baru,monster_inventory_baru,user_login_baru)
+    else:
+        Help(user_login)
+    while True:
+        menu=input(clr.colored('>>> ','blue'))
+        if menu == 'login':
             login(user_baru,user_login_baru)
+        elif menu=='register':
+            (user_baru,monster_inventory_baru)=register(user_baru,monster_baru,monster_inventory_baru,user_login_baru)
         elif menu=='logout':
             #F02
             logout(user_baru,user_login_baru)
@@ -46,9 +57,7 @@ if sukses:
         elif menu=='exit':
             # F16
             Exit(user_baru,user_login_baru,monster_baru,monster_shop_baru,monster_inventory_baru,item_inventory_baru,item_shop_baru)
-        elif menu=='register':
-            # F16
-            (user_baru,monster_inventory_baru)=register(user_baru,monster_baru,monster_inventory_baru,user_login_baru)
+            break
         elif menu=='shop_management':
             if user_login_baru[1][2]=='Agent':
                 print('Hak akses untuk Admin')

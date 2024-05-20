@@ -158,26 +158,23 @@ def fight(monster_lvl:int,r_monster:list,user_login:list,item_inv:list,monster_i
             
 
 def battle(user_login:list,monster:list,item_inv:list,monster_inv:list)->list:
-    if user_login[1][4] == 'False':
-        Help()
-    else:
-        id_monster = RNG.random_number([1, len(monster)])
-        monster_lvl = RNG.random_number([1, 5])
-        random_monster = []
-        for m in monster:
-            if m[0] == str(id_monster):
-                random_monster.append(m[0])
-                random_monster.append(m[1])
-                random_monster.append(int(m[2]))
-                random_monster.append(int(m[3]))
-                random_monster.append(int(m[4]))
-        random_monster.append(monster_lvl)
-        result = fight(monster_lvl, random_monster,user_login,item_inv,monster_inv,monster)
+    id_monster = RNG.random_number([1, len(monster)])
+    monster_lvl = RNG.random_number([1, 5])
+    random_monster = []
+    for m in monster:
+        if m[0] == str(id_monster):
+            random_monster.append(m[0])
+            random_monster.append(m[1])
+            random_monster.append(int(m[2]))
+            random_monster.append(int(m[3]))
+            random_monster.append(int(m[4]))
+    random_monster.append(monster_lvl)
+    result = fight(monster_lvl, random_monster,user_login,item_inv,monster_inv,monster)
     if result['win']:
         reward = RNG.random_number([5, 30])
         user_login[1][3] = str(int(user_login[1][3]) + reward)
         print(clr.colored(f"Selamat, Anda berhasil mengalahkan monster {random_monster[1]}. Anda mendapatkan {reward} OC.", 'yellow'))
-        return user_login
     else:
         print(clr.colored(f"Yahhh, Anda dikalahkan monster {random_monster[1]}. Jangan menyerah, coba lagi !!!", 'grey'))
+    return user_login
 # battle()

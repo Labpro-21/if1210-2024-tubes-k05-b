@@ -1,4 +1,3 @@
-import parseran
 
 #strength ningkatin 5% atk
 #resilience ningkatin 5% def (tapi klo defnya mentok 50)

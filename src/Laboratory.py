@@ -1,4 +1,3 @@
-import parseran
 def load_data_m(user_login:list,monster:list,monster_inv:list):
     data_id = user_login[1][0]
     data_m = {

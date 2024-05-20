@@ -1,6 +1,7 @@
 import os
 import time
 import parseran
+import Exit
 
 def save(folder_name,user:list,user_login:list,monster:list,monster_shop:list,monster_inventory:list,item_shop:list,item_inventory:list):
     parseran.write_csv_to_folder(folder_name,'user',user)
@@ -13,7 +14,7 @@ def save(folder_name,user:list,user_login:list,monster:list,monster_shop:list,mo
 
 def new_save(user:list,user_login:list,monster:list,monster_shop:list,monster_inventory:list,item_shop:list,item_inventory:list):
     folder_name = input("Masukkan nama folder: ")
-
+    user = Exit.save_oc_user_login(user,user_login)
     if os.path.exists('./data'):
         if not os.path.exists(f'./data/{folder_name}'):
             print(f"Membuat folder data/{folder_name}...")

@@ -2,7 +2,6 @@
 import os
 import parseran
 import enkripsi
-import Login
 
 # Fungsi untuk melakukan registrasi
 def register(users:list, monsters:list,monster_inventory:list,user_login:list)->(list,list):
@@ -36,7 +35,7 @@ def register(users:list, monsters:list,monster_inventory:list,user_login:list)->
     
     # Proses registrasi
     new_agent_id = len(users) if users else 1
-    new_agent = [new_agent_id, username, daenkripsi.encode(password), 'Agent', 0]
+    new_agent = [str(new_agent_id), username, enkripsi.encode(password), 'Agent', 0]
     users.append(new_agent)
 
     data_role = users[new_agent_id][3]
@@ -45,6 +44,5 @@ def register(users:list, monsters:list,monster_inventory:list,user_login:list)->
     data_oc = '0'
     for_monster_inventory = [str(new_agent_id),str(monster_choice),'1']
     monster_inventory.append(for_monster_inventory)
-    print("Selamat datang Agent", username + ". Mari kita mengalahkan Dr. Asep Spakbor dengan", monsters[monster_choice][1] + "!")
-    user_login = Login.save_data_login(data_id,data_username,data_role,data_oc,user_login)
+    print("Selamat datang Agent", username + ". Mari kita mengalahkan Dr. Asep Spakbor dengan", monsters[monster_choice][1] + "!. silahkan tekan login!")
     return (users,monster_inventory)
